@@ -1,1 +1,1 @@
-"# DET.Booking.App" 
+"DET.Booking.App" 
