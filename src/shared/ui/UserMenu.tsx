@@ -22,7 +22,7 @@ export const UserMenu = () => {
         className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100"
       >
         <img
-          src="/avatar.jpg"
+          src="https://fydn.imgix.net/m%2Fgen%2Fart-print-square-p1%2Fd338a134-22d3-47a5-a120-c0c6858d4ee6.jpg?auto=format%2Ccompress&q=75"
           alt="avatar"
           className="h-8 w-8 rounded-full object-cover"
         />
