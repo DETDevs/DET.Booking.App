@@ -24,13 +24,11 @@ export default function BookingTable() {
     search: "",
   });
 
-  /* ---------- filtrado ---------- */
   const rows: Data[] = useMemo(() => {
     return bookingsData
       .filter((b) => {
         const d = new Date(b.date);
 
-        // rango de fechas
         if (filters.startDate && d < filters.startDate) return false;
         if (filters.endDate   && d > filters.endDate)   return false;
 

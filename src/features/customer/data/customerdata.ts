@@ -1,28 +1,28 @@
 
-export interface Booking {
+export interface Customer {
   id: string;
-  patient: string;
-  doctor: string;
+  name: string;
+  email: string;
   service: string;
   date: string;      
   time: string;      
   status: string;    
 }
 
-export const bookingsData: Booking[] = [
+export const customerData: Customer[] = [
   {
     id: "1",
-    patient: "Amanda Chavez",
-    doctor: "Dr. Emily Johnson",
+    name: "Amanda Chavez",
+    email: "amanda@gmail.com",
     service: "Fisioterapia",
     date: "2025-05-13",
     time: "11:00 - 12:00",
-    status: "Pending",     
+    status: "Pending",    
   },
   {
     id: "2",
-    patient: "Jasmine Palmer",
-    doctor: "Dr. Carlos Martínez",
+    name: "Jasmine Palmer",
+    email: "Martinez@gmail.com",
     service: "Terapia Ocupacional",
     date: "2025-05-14",
     time: "09:00 - 10:00",
@@ -30,8 +30,8 @@ export const bookingsData: Booking[] = [
   },
   {
     id: "3",
-    patient: "Randy Elliot",
-    doctor: "Dra. Ana Pérez",
+    name: "Randy Elliot",
+    email: "perez@gmail.com",
     service: "Psicología",
     date: "2025-05-14",
     time: "10:30 - 11:30",

@@ -16,8 +16,8 @@ export const BookingPreviewCard = ({ booking }: { booking: Booking }) => (
       <span className="font-medium">Time:</span> {booking.time}
     </p>
     <div className="pt-2 flex gap-3">
-      <button className="text-primary text-sm hover:underline">Accept Booking</button>
-      <button className="text-gray-400 text-sm" disabled>Decline</button>
+      <button className="text-primary text-sm hover:underline cursor-pointer">Accept Booking</button>
+      <button className="text-gray-400 text-sm cursor-pointer" disabled>Decline</button>
     </div>
   </div>
 );
