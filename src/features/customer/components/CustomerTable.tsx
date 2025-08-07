@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import StickyHeadTable from "@/shared/ui/Table";
 import type { Column, Data } from "@/shared/ui/Table";
-import FilterComponent, { type Filters } from "./FilterCustomer";
+import FilterComponent, { type Filters } from "../../../shared/ui/filter";
 import { customerData } from "../data/customerdata";
 
 const columns: Column[] = [

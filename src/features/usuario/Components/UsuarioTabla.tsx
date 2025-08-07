@@ -4,7 +4,7 @@ import type { Column, Data } from "@/shared/ui/Table";
 import { usuarioData } from "../data/UsuarioData";
 import FilterComponent, {
   type Filters,
-} from "../../customer/components/FilterCustomer";
+} from "../../../shared/ui/filter";
 
 const columns: Column[] = [
   { id: "name", label: "Nombre", minWidth: 150 },
