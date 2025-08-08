@@ -10,7 +10,7 @@ const columns: Column[] = [
   { id: "service", label: "Servicio", minWidth: 150 },
   { id: "date", label: "Fecha", minWidth: 110 },
   { id: "time", label: "Hora", minWidth: 110 },
-  { id: "status", label: "Estado", minWidth: 110 },
+  // { id: "status", label: "Estado", minWidth: 110 },
 ];
 
 export const CustomerTable = () => {

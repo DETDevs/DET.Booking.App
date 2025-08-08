@@ -1,0 +1,7 @@
+[
+  { "id": "ana",   "name": "Ana",   "avatar": "/team/ana.webp",   "serviceId": "16" },
+  { "id": "messi",   "name": "Messi",   "avatar": "/team/messi.webp",   "serviceId": "13" },
+  { "id": "pepe",   "name": "Pepe",   "avatar": "/team/pepe.webp",   "serviceId": "14" },
+  { "id": "bruno", "name": "Bruno", "avatar": "/team/bruno.webp", "serviceId": "16" },
+  { "id": "carla", "name": "Carla", "avatar": "/team/carla.webp", "serviceId": "17" }
+]

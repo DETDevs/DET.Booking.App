@@ -1,8 +1,9 @@
-const MakeBookPage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-semibold mb-4">makebook</h1>
-    <p>Aquí irá la información del makebook.</p>
-  </div>
-);
+import BookingFlow from "@/features/makebook/components/BookingFlow";
 
-export default MakeBookPage;
+export default function MakeBookPage(){
+ return (
+    <main className="my-20 md:min-h-[100vh] flex justify-center">
+      <BookingFlow />
+    </main>
+  );
+}

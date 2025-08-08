@@ -1,54 +1,76 @@
-# React + TypeScript + Vite
+# BookingAdmon
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema de gestión de reservas (Booking) desarrollado con **React**, **TypeScript** y **Vite**, ideal para negocios como clínicas, peluquerías, consultorios, entre otros.
 
-Currently, two official plugins are available:
+## 🛠 Tecnologías principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 18** + **Vite** para un desarrollo veloz y moderno
+- **TypeScript** para tipado estático
+- **TailwindCSS** + **tw-animate-css** para estilos rápidos y animaciones
+- **Zustand** para manejo global de estado
+- **React Hook Form** + **Zod** para formularios y validaciones
+- **Radix UI** para componentes accesibles y personalizables
+- **React Google ReCAPTCHA v2** para protección contra bots
+- **React Query** para manejo eficiente de datos asincrónicos
+- **MUI (Material UI)** para componentes adicionales de UI
+- **React Router DOM** v7 para navegación SPA
+- **Recharts** para gráficas
 
-## Expanding the ESLint configuration
+## 🔐 Funcionalidades destacadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Modal de autenticación protegido por ReCAPTCHA
+- Flujo multistep (4 pasos) para reservas de servicio:
+  1. Selección de servicio y tamaño
+  2. Selección de encargado
+  3. Fecha y hora disponible
+  4. Confirmación del cliente
+- Sidebar con resumen en tiempo real del proceso
+- Diseño responsive y limpio
+- Soporte para múltiples centros, servicios, usuarios y clientes
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📦 Scripts disponibles
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+```bash
+npm run dev       # Inicia el servidor de desarrollo
+npm run build     # Compila la aplicación para producción
+npm run preview   # Muestra una vista previa de producción
+npm run lint      # Corre ESLint para mantener calidad del código
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+🧱 Estructura recomendada
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+src/
+├── api/               # Lógica para consumir endpoints
+├── components/        # Componentes reutilizables (modales, inputs, etc.)
+├── features/          # Módulos por dominio (clientes, servicios, ventas, etc.)
+├── hooks/             # Custom hooks
+├── pages/             # Páginas principales (Login, BookingFlow, Dashboard)
+├── router/            # Configuración de rutas
+├── store/             # Global state con Zustand
+├── utils/             # Helpers y constantes
+└── styles/            # Estilos globales (Tailwind, animaciones)
+
+📋 ESLint y buenas prácticas
+Este proyecto incluye reglas básicas de ESLint con soporte para TypeScript y React. Puedes expandir la configuración agregando:
+
+eslint-plugin-react-x
+
+eslint-plugin-react-dom
+
+Reglas estrictas con typescript-eslint
+
+🌐 Requisitos
+Node.js >= 18
+
+Navegador moderno
+
+Cuenta válida de reCAPTCHA (v2)
+
+🚀 Cómo iniciar
+
+git clone https://github.com/tu-usuario/bookingadmon.git
+cd bookingadmon
+npm install
+npm run dev
+
+📄 Licencia
+MIT - Creado por Edwin T.

@@ -11,7 +11,7 @@ const columns: Column[] = [
   { id: "email", label: "Correo", minWidth: 150 },
   { id: "date", label: "Fecha", minWidth: 110 },
   { id: "time", label: "Hora", minWidth: 110 },
-  { id: "status", label: "Estado", minWidth: 110 },
+  // { id: "status", label: "Estado", minWidth: 110 },
 ];
 
 export const UsuarioTable = () => {
