@@ -5,13 +5,13 @@ import { z } from "zod";
 import ReCAPTCHA from "react-google-recaptcha";
 import { CheckCircle2, XCircle } from "lucide-react";
 
-import { Input } from "../../../../ui/input";
-import { Label } from "../../../../ui/label";
+import { Input } from "../../../ui/input";
+import { Label } from "../../../ui/label";
 import { Button } from "@/components/ui/button";
 
 import { useBooking } from "@/store/booking";
-import { createBooking } from "../../api/booking";
-import type { BookingRequest } from "../../api/booking";
+import { createBooking } from "../api/booking";
+import type { BookingRequest } from "../api/booking";
 
 const SITE_KEY = "6LfiwAkrAAAAAD5LPzXJsij7YcHZG7reqDDoiwRF";
 

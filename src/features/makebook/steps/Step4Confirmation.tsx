@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle, CardContent } from "../../../../ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "../../../ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Copy } from "lucide-react";
 import { format, parseISO, addMinutes } from "date-fns";
@@ -53,7 +53,7 @@ Total:     $${price}
     reset();
     window.scrollTo({ top: 0, behavior: "smooth" });
     onPrev();
-    navigate("/serivecesshow");
+    navigate("/makebook");
   };
 
   return (

@@ -1,11 +1,11 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "../../../../ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "../../../ui/tabs";
 import { Button } from "@/components/ui/button";
 import { useBooking } from "@/store/booking";
-import { useServicios } from "../../hooks/useServicios";
-import ServiceCard from "../ui/ServiceCard";
-import EmployeeSelect from "../ui/EmployeeSelect";
-import SizeSelect from "../ui/SizeSelect";
-import empleadosData from "../../empleados.json";
+import { useServicios } from "../hooks/useServicios";
+import ServiceCard from "../components/ui/ServiceCard";
+import EmployeeSelect from "../components/ui/EmployeeSelect";
+import SizeSelect from "../components/ui/SizeSelect";
+import empleadosData from "../empleados.json";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -49,7 +49,7 @@ export default function Step1ServiceSelect({ onNext }: { onNext: () => void }) {
         <button
           onClick={() => {
             reset();
-            navigate("/serivecesshow");
+            navigate("/");
           }}
           className="text-black font-bold px-3 py-1 rounded-full shadow bg-white hover:bg-slate-200 transition"
         >

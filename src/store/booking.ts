@@ -1,52 +1,61 @@
 import { create } from "zustand";
-import type { UIService } from "../features/makebook/types/Servicio"; 
+
+type Client = {
+  name: string;
+  idNumber: string;
+  email: string;
+  phone: string;
+};
 
 interface BookingState {
-  service?: UIService;
+  service?: any;
   employee?: { id: string; name: string };
   date?: string;
   time?: string;
   petSize?: { idPrecio: number; label: string; price: number };
-  client?: {
-    name: string;
-    idNumber: string;
-    email: string;
-    phone: string;
-  };
+
+  client?: Client;
+  isExistingClient: boolean;
   bookingId?: string;
 
-  setService:   (s: UIService | undefined)  => void;
-  setEmployee:  (e: BookingState["employee"]) => void;
-  setDateTime:  (d: string, t: string)        => void;
-  setClient:    (c: BookingState["client"])   => void;
-  setPetSize:   (s: BookingState["petSize"]) => void;
-  setBookingId: (id: string)                  => void;  
-  reset:        () => void;
+  setService: (s: any | undefined) => void;
+  setEmployee: (e: BookingState["employee"]) => void;
+  setDateTime: (d: string, t: string) => void;
+  setClient: (c: Client | undefined) => void;
+  setExistingClient: (b: boolean) => void;
+  setPetSize: (s: BookingState["petSize"]) => void;
+  setBookingId: (id: string) => void;
+  reset: (opts?: { keepClient?: boolean }) => void;
 }
 
-export const useBooking = create<BookingState>((set) => ({
+export const useBooking = create<BookingState>((set, get) => ({
   service: undefined,
   employee: undefined,
   date: undefined,
   time: undefined,
   client: undefined,
+  isExistingClient: false,
   bookingId: undefined,
   petSize: undefined,
 
-  setPetSize:   (petSize)    => set({ petSize }),
-  setService:   (service)    => set({ service }),
-  setEmployee:  (employee)   => set({ employee }),
-  setDateTime:  (date, time) => set({ date, time }),
-  setClient:    (client)     => set({ client }),
-  setBookingId: (bookingId)  => set({ bookingId }),     
-  reset: () =>
+  setService: (service) => set({ service }),
+  setEmployee: (employee) => set({ employee }),
+  setDateTime: (date, time) => set({ date, time }),
+  setClient: (client) => set({ client }),
+  setExistingClient: (b) => set({ isExistingClient: b }),
+  setPetSize: (petSize) => set({ petSize }),
+  setBookingId: (bookingId) => set({ bookingId }),
+  reset: (opts?: { keepClient?: boolean }) => {
+    const { client, isExistingClient } = get();
     set({
       service: undefined,
       employee: undefined,
       date: undefined,
       time: undefined,
-      client: undefined,
-      bookingId: undefined,
       petSize: undefined,
-    }),
+      bookingId: undefined,
+      client: opts?.keepClient ? client : undefined,
+      isExistingClient: opts?.keepClient ? isExistingClient : false,
+    });
+  },
 }));

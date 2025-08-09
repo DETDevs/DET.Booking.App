@@ -1,9 +1,9 @@
-import BookingFlow from "@/features/makebook/components/BookingFlow";
+import ClientLookupPage from "@/features/makebook/modal/ClientLookupPage";
 
-export default function MakeBookPage(){
- return (
-    <main className="my-20 md:min-h-[100vh] flex justify-center">
-      <BookingFlow />
-    </main>
+export default function MakeBookPage() {
+  return (
+    <>
+      <ClientLookupPage />
+    </>
   );
 }

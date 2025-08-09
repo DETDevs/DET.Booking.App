@@ -4,9 +4,9 @@ import { CalendarDays, Clock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useBooking } from "@/store/booking";
-import { useSlots } from "../../hooks/useSlots";
-import TimeSlotList from "../ui/TimeSlotList";
-import HorizontalCalendar from "../ui/CalendarHoriz";
+import { useSlots } from "../hooks/useSlots";
+import TimeSlotList from "../components/ui/TimeSlotList";
+import HorizontalCalendar from "../components/ui/CalendarHoriz";
 
 const SkeletonSlots = () => (
   <div className="grid grid-cols-3 gap-2 animate-pulse">

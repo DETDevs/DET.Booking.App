@@ -14,6 +14,8 @@ import {
   AdminLayout,
   Layout,
 } from "./lazyPages";
+import ServicesShowcase from "./features/makebook/components/ServicesShowCasePage";
+import BookingFlow from "./features/makebook/components/BookingFlow";
 
 export const AppRoutes = () => (
   <Suspense fallback={<Loading />}>
@@ -35,6 +37,9 @@ export const AppRoutes = () => (
           <Route path="user" element={<UsuarioPage />} />
           <Route path="customer" element={<CustomerPage />} />
           <Route path="settings" element={<SettingsPage />} />
+
+          <Route path="makebook/services" element={<ServicesShowcase />} />
+          <Route path="makebook/booking" element={<BookingFlow />} />
         </Route>
       </Route>
 
