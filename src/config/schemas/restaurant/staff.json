@@ -1,0 +1,48 @@
+{
+  "entity": "staff",
+  "title": "Personal",
+  "columns": [
+    { "key": "name", "label": "Nombre", "type": "text" },
+    { "key": "role", "label": "Rol", "type": "badge" },
+    { "key": "phone", "label": "Teléfono", "type": "text" },
+    { "key": "shift", "label": "Turno", "type": "text" },
+    { "key": "available", "label": "Disponible", "type": "boolean" }
+  ],
+  "fields": [
+    {
+      "key": "name",
+      "label": "Nombre completo",
+      "type": "text",
+      "required": true
+    },
+    {
+      "key": "role",
+      "label": "Rol",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Chef",
+        "Sous Chef",
+        "Mesero",
+        "Host",
+        "Bartender",
+        "Cajero",
+        "Gerente"
+      ]
+    },
+    { "key": "phone", "label": "Teléfono", "type": "tel", "required": true },
+    {
+      "key": "shift",
+      "label": "Turno",
+      "type": "select",
+      "required": true,
+      "options": ["Mañana", "Tarde", "Noche", "Completo"]
+    },
+    {
+      "key": "available",
+      "label": "Disponible",
+      "type": "checkbox",
+      "required": false
+    }
+  ]
+}

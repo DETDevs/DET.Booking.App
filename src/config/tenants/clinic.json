@@ -13,6 +13,7 @@
     "dashboard": { "enabled": true, "label": "Panel" },
     "bookings": { "enabled": true, "label": "Citas" },
     "newBooking": { "enabled": true, "label": "Nueva Cita" },
+    "calendar": { "enabled": true, "label": "Calendario" },
     "staff": { "enabled": true, "label": "Doctores" },
     "patients": { "enabled": true, "label": "Pacientes" },
     "settings": { "enabled": true, "label": "Configuración" },
@@ -23,6 +24,7 @@
   "navigation": [
     { "featureKey": "dashboard", "icon": "Home", "path": "/" },
     { "featureKey": "bookings", "icon": "Calendar", "path": "/bookings" },
+    { "featureKey": "calendar", "icon": "CalendarCheck", "path": "/calendar" },
     {
       "featureKey": "newBooking",
       "icon": "CalendarPlus",

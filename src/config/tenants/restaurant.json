@@ -1,24 +1,24 @@
 {
-  "id": "barbershop",
-  "name": "BarberKing Studio",
-  "type": "barbershop",
-  "schemaDir": "barbershop",
+  "id": "restaurant",
+  "name": "La Mesa Dorada",
+  "type": "restaurant",
+  "schemaDir": "restaurant",
   "branding": {
-    "logo": "/logo-barber.png",
-    "primaryColor": "#d97706",
-    "accentColor": "#f59e0b",
-    "theme": "dark"
+    "logo": "/logo-restaurant.png",
+    "primaryColor": "#dc2626",
+    "accentColor": "#f87171",
+    "theme": "light"
   },
   "features": {
     "dashboard": { "enabled": true, "label": "Inicio" },
-    "bookings": { "enabled": true, "label": "Reservas" },
-    "newBooking": { "enabled": true, "label": "Nueva Reserva" },
-    "calendar": { "enabled": true, "label": "Agenda" },
-    "staff": { "enabled": true, "label": "Barberos" },
+    "bookings": { "enabled": true, "label": "Reservaciones" },
+    "newBooking": { "enabled": true, "label": "Nueva Reservación" },
+    "calendar": { "enabled": true, "label": "Calendario" },
+    "staff": { "enabled": true, "label": "Personal" },
     "patients": { "enabled": true, "label": "Clientes" },
-    "settings": { "enabled": true, "label": "Ajustes" },
+    "settings": { "enabled": true, "label": "Configuración" },
     "profile": { "enabled": true, "label": "Mi Perfil" },
-    "inventory": { "enabled": false },
+    "inventory": { "enabled": true, "label": "Inventario" },
     "billing": { "enabled": false }
   },
   "navigation": [

@@ -3,7 +3,7 @@ import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { SimpleTooltip } from "./SimpleTooltip";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface Links {
   label: string;
@@ -106,7 +106,7 @@ export const DesktopSidebar = ({
   return (
     <motion.div
       className={cn(
-        "h-full px-4 py-4 hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 shrink-0 relative overflow-hidden",
+        "h-full px-4 py-4 hidden md:flex md:flex-col bg-white dark:bg-neutral-800 border-r border-gray-100 dark:border-neutral-700 shrink-0 relative overflow-hidden transition-colors duration-300",
         className,
       )}
       animate={{
@@ -121,11 +121,11 @@ export const DesktopSidebar = ({
         onClick={() => setOpen(!open)}
         className={cn(
           "flex items-center justify-center w-8 h-8 rounded-full shrink-0",
-          "bg-neutral-200 dark:bg-neutral-700",
-          "hover:bg-neutral-300 dark:hover:bg-neutral-600",
-          "text-neutral-600 dark:text-neutral-300",
+          "bg-gray-100 dark:bg-neutral-700",
+          "hover:bg-gray-200 dark:hover:bg-neutral-600",
+          "text-gray-500 dark:text-neutral-400",
           "transition-colors duration-200",
-          "mt-auto self-center",
+          "mt-auto self-center cursor-pointer",
         )}
         aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
       >
@@ -145,7 +145,7 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
+          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-white dark:bg-neutral-800 w-full",
         )}
         {...props}
       >
@@ -163,7 +163,7 @@ export const MobileSidebar = ({
               exit={{ x: "-100%", opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className={cn(
-                "fixed top-0 left-0 h-full w-3/4 max-w-xs bg-white dark:bg-neutral-900 p-4 z-50 flex flex-col",
+                "fixed top-0 left-0 h-full w-3/4 max-w-xs bg-white dark:bg-neutral-800 p-4 z-50 flex flex-col",
                 className,
               )}
             >
@@ -188,21 +188,40 @@ export const MobileSidebar = ({
 export const SidebarLink = ({
   link,
   className,
+  activeColor,
   ...props
 }: {
   link: Links;
   className?: string;
+  activeColor?: string;
 }) => {
   const { open, animate } = useSidebar();
+  const location = useLocation();
+
+  const isActive =
+    link.href === "/"
+      ? location.pathname === "/"
+      : location.pathname.startsWith(link.href);
+
+  const activeBg = activeColor ? `${activeColor}15` : undefined;
+  const activeTextColor = activeColor ?? "#6366f1";
 
   return (
     <SimpleTooltip content={link.label} enabled={!open}>
       <Link
         to={link.href}
         className={cn(
-          "flex items-center justify-start gap-2 group/sidebar py-2 rounded-md px-1 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 w-full",
+          "flex items-center justify-start gap-3 group/sidebar py-2.5 rounded-xl px-2 transition-all duration-200 w-full",
+          isActive
+            ? ""
+            : "hover:bg-gray-100 dark:hover:bg-neutral-700 text-gray-600 dark:text-neutral-400",
           className,
         )}
+        style={
+          isActive
+            ? { backgroundColor: activeBg, color: activeTextColor }
+            : undefined
+        }
         {...props}
       >
         <span className="shrink-0">{link.icon}</span>
@@ -216,10 +235,23 @@ export const SidebarLink = ({
               : "inline-block",
             opacity: animate ? (open ? 1 : 0) : 1,
           }}
-          className="text-neutral-700 dark:text-neutral-200 text-sm whitespace-pre inline-block !p-0 !m-0"
+          className={cn(
+            "text-sm font-medium whitespace-pre inline-block !p-0 !m-0",
+            isActive ? "font-semibold" : "text-gray-700 dark:text-neutral-300",
+          )}
+          style={isActive ? { color: activeTextColor } : undefined}
         >
           {link.label}
         </motion.span>
+
+        {isActive && (
+          <motion.div
+            layoutId="sidebar-active-pill"
+            className="absolute left-0 w-[3px] rounded-r-full h-6"
+            style={{ backgroundColor: activeTextColor }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          />
+        )}
       </Link>
     </SimpleTooltip>
   );

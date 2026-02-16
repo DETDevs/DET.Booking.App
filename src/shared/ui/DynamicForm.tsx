@@ -35,7 +35,7 @@ export const DynamicForm = ({
 
   const renderField = (field: FieldDef) => {
     const baseClass =
-      "w-full px-4 py-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:border-transparent transition-shadow";
+      "w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-neutral-600 bg-gray-50/50 dark:bg-neutral-700 text-sm text-gray-900 dark:text-neutral-100 placeholder:text-gray-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:bg-white dark:focus:bg-neutral-600 focus:border-transparent transition-all duration-200";
     const ringStyle = {
       "--tw-ring-color": primaryColor,
     } as React.CSSProperties;
@@ -46,7 +46,7 @@ export const DynamicForm = ({
           <select
             name={field.key}
             required={field.required}
-            className={baseClass}
+            className={baseClass + " appearance-none cursor-pointer"}
             style={ringStyle}
           >
             <option value="">Seleccionar...</option>
@@ -70,14 +70,18 @@ export const DynamicForm = ({
         );
       case "checkbox":
         return (
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              name={field.key}
-              className="w-4 h-4 rounded border-gray-300"
-              style={{ accentColor: primaryColor }}
-            />
-            <span className="text-sm text-gray-700">{field.label}</span>
+          <label className="flex items-center gap-3 cursor-pointer group">
+            <div className="relative">
+              <input
+                type="checkbox"
+                name={field.key}
+                className="w-5 h-5 rounded-md border-2 border-gray-300 dark:border-neutral-500 transition-colors cursor-pointer"
+                style={{ accentColor: primaryColor }}
+              />
+            </div>
+            <span className="text-sm text-gray-700 dark:text-neutral-300 group-hover:text-gray-900 dark:group-hover:text-neutral-100 transition-colors">
+              {field.label}
+            </span>
           </label>
         );
       default:
@@ -94,22 +98,39 @@ export const DynamicForm = ({
     }
   };
 
+  const canSplitColumns =
+    fields.length > 3 && fields.every((f) => f.type !== "textarea");
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white rounded-xl border border-gray-200 overflow-hidden"
+      className="bg-white dark:bg-neutral-800 rounded-2xl border border-gray-100 dark:border-neutral-700 shadow-sm overflow-hidden transition-colors duration-300"
     >
       {title && (
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+        <div className="px-8 pt-6 pb-4">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            {title}
+          </h2>
+          <div
+            className="mt-2 h-0.5 rounded-full"
+            style={{
+              background: `linear-gradient(to right, ${primaryColor}, transparent)`,
+              width: "60px",
+            }}
+          />
         </div>
       )}
 
-      <div className="p-6 space-y-5">
+      <div
+        className={`px-8 py-6 ${canSplitColumns ? "grid grid-cols-2 gap-x-8 gap-y-5" : "space-y-5"}`}
+      >
         {fields.map((field) => (
-          <div key={field.key}>
+          <div
+            key={field.key}
+            className={field.type === "textarea" ? "col-span-2" : ""}
+          >
             {field.type !== "checkbox" && (
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-neutral-400 mb-2">
                 {field.label}
                 {field.required && (
                   <span className="text-red-400 ml-0.5">*</span>
@@ -121,20 +142,23 @@ export const DynamicForm = ({
         ))}
       </div>
 
-      <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
+      <div className="px-8 py-5 bg-gray-50/50 dark:bg-neutral-900/50 border-t border-gray-100 dark:border-neutral-700 flex justify-end gap-3">
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+            className="px-5 py-2.5 text-sm font-medium text-gray-600 dark:text-neutral-300 bg-white dark:bg-neutral-700 border border-gray-200 dark:border-neutral-600 rounded-xl hover:bg-gray-50 dark:hover:bg-neutral-600 transition-all duration-200 cursor-pointer"
           >
             Cancelar
           </button>
         )}
         <button
           type="submit"
-          className="px-6 py-2 text-sm font-semibold text-white rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
-          style={{ backgroundColor: primaryColor }}
+          className="px-6 py-2.5 text-sm font-semibold text-white rounded-xl hover:opacity-90 hover:shadow-lg transition-all duration-200 cursor-pointer"
+          style={{
+            backgroundColor: primaryColor,
+            boxShadow: `0 4px 14px ${primaryColor}40`,
+          }}
         >
           {submitLabel ?? "Guardar"}
         </button>

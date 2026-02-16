@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
 import { Loading } from "./layout/Loading";
 import { useTenant } from "@/entities/tenant/TenantContext";
+import { ProtectedRoute } from "@/entities/auth/ProtectedRoute";
 
 import {
   BookingsPage,
@@ -14,6 +15,9 @@ import {
   CustomerPage,
   AdminLayout,
   MainLayout,
+  NotFoundPage,
+  CalendarPage,
+  ClientDetailPage,
 } from "./lazyPages";
 
 const featureRouteMap: Record<
@@ -27,6 +31,7 @@ const featureRouteMap: Record<
   patients: { path: "customers", element: <CustomerPage /> },
   settings: { path: "settings", element: <SettingsPage /> },
   profile: { path: "profile", element: <ProfilePage /> },
+  calendar: { path: "calendar", element: <CalendarPage /> },
 };
 
 export const AppRoutes = () => {
@@ -41,26 +46,29 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
 
-        <Route
-          element={
-            <Suspense fallback={<Loading />}>
-              <MainLayout />
-            </Suspense>
-          }
-        >
-          <Route element={<AdminLayout />}>
-            {enabledRoutes.map(([key, route]) => (
-              <Route
-                key={key}
-                index={route.path === "/"}
-                path={route.path === "/" ? undefined : route.path}
-                element={route.element}
-              />
-            ))}
+        <Route element={<ProtectedRoute />}>
+          <Route
+            element={
+              <Suspense fallback={<Loading />}>
+                <MainLayout />
+              </Suspense>
+            }
+          >
+            <Route element={<AdminLayout />}>
+              {enabledRoutes.map(([key, route]) => (
+                <Route
+                  key={key}
+                  index={route.path === "/"}
+                  path={route.path === "/" ? undefined : route.path}
+                  element={route.element}
+                />
+              ))}
+              <Route path="customers/:id" element={<ClientDetailPage />} />
+            </Route>
           </Route>
         </Route>
 
-        <Route path="*" element={<div className="p-10">404 – Not found</div>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
   );

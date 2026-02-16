@@ -1,0 +1,105 @@
+{
+  "entity": "settings",
+  "title": "Configuración",
+  "sections": [
+    {
+      "title": "Horario del Restaurante",
+      "icon": "Clock",
+      "fields": [
+        {
+          "key": "openTime",
+          "label": "Hora de apertura",
+          "type": "time",
+          "required": true
+        },
+        {
+          "key": "closeTime",
+          "label": "Hora de cierre",
+          "type": "time",
+          "required": true
+        },
+        {
+          "key": "workDays",
+          "label": "Días laborales",
+          "type": "text",
+          "required": true,
+          "placeholder": "Mar-Dom"
+        }
+      ]
+    },
+    {
+      "title": "Mesas y Capacidad",
+      "icon": "LayoutGrid",
+      "fields": [
+        {
+          "key": "totalTables",
+          "label": "Número de mesas",
+          "type": "number",
+          "required": true
+        },
+        {
+          "key": "maxCapacity",
+          "label": "Capacidad máxima",
+          "type": "number",
+          "required": true
+        },
+        {
+          "key": "allowWaitlist",
+          "label": "Activar lista de espera",
+          "type": "checkbox",
+          "required": false
+        }
+      ]
+    },
+    {
+      "title": "Menú y Servicios",
+      "icon": "UtensilsCrossed",
+      "fields": [
+        {
+          "key": "menuTypes",
+          "label": "Tipos de menú",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "Desayuno, Almuerzo, Cena, Brunch..."
+        },
+        {
+          "key": "specialDiets",
+          "label": "Dietas especiales",
+          "type": "textarea",
+          "required": false,
+          "placeholder": "Vegetariano, Vegano, Sin Gluten..."
+        }
+      ]
+    },
+    {
+      "title": "Datos del Restaurante",
+      "icon": "Building",
+      "fields": [
+        {
+          "key": "businessName",
+          "label": "Nombre del restaurante",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "address",
+          "label": "Dirección",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "label": "Teléfono",
+          "type": "tel",
+          "required": true
+        },
+        {
+          "key": "email",
+          "label": "Correo",
+          "type": "email",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

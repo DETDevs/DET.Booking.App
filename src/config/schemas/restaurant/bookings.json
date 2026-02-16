@@ -1,0 +1,46 @@
+{
+  "entity": "bookings",
+  "title": "Reservaciones",
+  "columns": [
+    { "key": "client", "label": "Cliente", "type": "text" },
+    { "key": "table", "label": "Mesa", "type": "badge" },
+    { "key": "guests", "label": "Comensales", "type": "text" },
+    { "key": "date", "label": "Fecha", "type": "date" },
+    { "key": "time", "label": "Hora", "type": "text" },
+    { "key": "status", "label": "Estado", "type": "badge" }
+  ],
+  "fields": [
+    { "key": "client", "label": "Cliente", "type": "text", "required": true },
+    {
+      "key": "table",
+      "label": "Mesa",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Mesa 1",
+        "Mesa 2",
+        "Mesa 3",
+        "Mesa 4",
+        "Mesa 5",
+        "Terraza A",
+        "Terraza B",
+        "VIP"
+      ]
+    },
+    {
+      "key": "guests",
+      "label": "Comensales",
+      "type": "number",
+      "required": true
+    },
+    { "key": "date", "label": "Fecha", "type": "date", "required": true },
+    { "key": "time", "label": "Hora", "type": "time", "required": true },
+    {
+      "key": "notes",
+      "label": "Notas especiales",
+      "type": "textarea",
+      "required": false,
+      "placeholder": "Alergias, celebración, preferencias..."
+    }
+  ]
+}

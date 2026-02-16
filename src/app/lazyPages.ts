@@ -39,3 +39,15 @@ export const AdminLayout = lazy(
 export const MainLayout = lazy(
     () => import("@/app/layout/MainLayout")
 );
+
+export const NotFoundPage = lazy(
+    () => import("@/pages/NotFoundPage/NotFoundPage")
+);
+
+export const CalendarPage = lazy(
+    () => import("@/pages/CalendarPage/CalendarPage")
+);
+
+export const ClientDetailPage = lazy(
+    () => import("@/pages/ClientDetailPage/ClientDetailPage")
+);

@@ -16,6 +16,18 @@ interface Props {
   onFilterChange: (f: Filters) => void;
 }
 
+const darkSx = {
+  "& .MuiOutlinedInput-root": {
+    color: "inherit",
+    "& fieldset": { borderColor: "#525252" },
+    "&:hover fieldset": { borderColor: "#737373" },
+    "&.Mui-focused fieldset": { borderColor: "#d97706" },
+  },
+  "& .MuiInputLabel-root": { color: "#a3a3a3" },
+  "& .MuiInputLabel-root.Mui-focused": { color: "#d97706" },
+  "& .MuiSelect-icon": { color: "#a3a3a3" },
+};
+
 export default function FilterBooking({ onFilterChange }: Props) {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
@@ -24,6 +36,9 @@ export default function FilterBooking({ onFilterChange }: Props) {
 
   const [openStart, setOpenStart] = useState(false);
   const [openEnd, setOpenEnd] = useState(false);
+
+  const isDark =
+    typeof document !== "undefined" && document.querySelector(".dark") !== null;
 
   useEffect(() => {
     onFilterChange({ startDate, endDate, status, search });
@@ -35,6 +50,8 @@ export default function FilterBooking({ onFilterChange }: Props) {
     setStatus("");
     setSearch("");
   };
+
+  const fieldSx = isDark ? darkSx : {};
 
   return (
     <div className="flex flex-wrap justify-between items-center gap-4 p-4">
@@ -50,6 +67,7 @@ export default function FilterBooking({ onFilterChange }: Props) {
                 readOnly: true,
                 onClick: () => setOpenStart(true),
               }}
+              sx={fieldSx}
             />
           </PopoverTrigger>
           <PopoverContent side="bottom" className="p-2">
@@ -76,6 +94,7 @@ export default function FilterBooking({ onFilterChange }: Props) {
                 readOnly: true,
                 onClick: () => setOpenEnd(true),
               }}
+              sx={fieldSx}
             />
           </PopoverTrigger>
           <PopoverContent side="bottom" className="p-2">
@@ -98,6 +117,7 @@ export default function FilterBooking({ onFilterChange }: Props) {
           value={status}
           onChange={(e) => setStatus(e.target.value)}
           className="w-[10rem]"
+          sx={fieldSx}
         >
           <MenuItem value="">All</MenuItem>
           <MenuItem value="Pending">Pending</MenuItem>
@@ -123,11 +143,12 @@ export default function FilterBooking({ onFilterChange }: Props) {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <Search size={16} />
+              <Search size={16} className={isDark ? "text-neutral-400" : ""} />
             </InputAdornment>
           ),
           style: { borderRadius: 20 },
         }}
+        sx={fieldSx}
       />
     </div>
   );

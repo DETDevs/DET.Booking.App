@@ -1,0 +1,21 @@
+{
+  "entity": "dashboard",
+  "title": "Inicio",
+  "kpis": [
+    { "key": "totalBookings", "label": "Total Reservaciones" },
+    { "key": "pendingApproval", "label": "Por confirmar" },
+    { "key": "today", "label": "Hoy" },
+    { "key": "totalClients", "label": "Comensales" }
+  ],
+  "previewTitle": "Reservaciones de hoy",
+  "previewActions": {
+    "accept": "Confirmar mesa",
+    "decline": "Cancelar"
+  },
+  "previewFields": {
+    "name": "Cliente",
+    "service": "Mesa / Evento",
+    "date": "Fecha",
+    "time": "Hora"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "entity": "settings",
+  "title": "Configuración",
+  "sections": [
+    {
+      "title": "Horarios de Atención",
+      "icon": "Clock",
+      "fields": [
+        {
+          "key": "openTime",
+          "label": "Hora de apertura",
+          "type": "time",
+          "required": true
+        },
+        {
+          "key": "closeTime",
+          "label": "Hora de cierre",
+          "type": "time",
+          "required": true
+        },
+        {
+          "key": "workDays",
+          "label": "Días laborales",
+          "type": "text",
+          "required": true,
+          "placeholder": "Lun-Vie"
+        }
+      ]
+    },
+    {
+      "title": "Servicios Disponibles",
+      "icon": "Stethoscope",
+      "fields": [
+        {
+          "key": "services",
+          "label": "Servicios ofrecidos",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "Consulta General, Pediatría, Cardiología..."
+        },
+        {
+          "key": "avgDuration",
+          "label": "Duración promedio (min)",
+          "type": "number",
+          "required": true
+        },
+        {
+          "key": "allowEmergency",
+          "label": "Permitir citas de emergencia",
+          "type": "checkbox",
+          "required": false
+        }
+      ]
+    },
+    {
+      "title": "Datos del Negocio",
+      "icon": "Building",
+      "fields": [
+        {
+          "key": "businessName",
+          "label": "Nombre del negocio",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "address",
+          "label": "Dirección",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "label": "Teléfono principal",
+          "type": "tel",
+          "required": true
+        },
+        {
+          "key": "email",
+          "label": "Correo electrónico",
+          "type": "email",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

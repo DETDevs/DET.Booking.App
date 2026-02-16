@@ -1,0 +1,28 @@
+{
+  "entity": "clients",
+  "title": "Clientes",
+  "columns": [
+    { "key": "name", "label": "Nombre", "type": "text" },
+    { "key": "phone", "label": "Teléfono", "type": "text" },
+    { "key": "email", "label": "Correo", "type": "text" },
+    { "key": "preferences", "label": "Preferencias", "type": "text" },
+    { "key": "lastVisit", "label": "Última visita", "type": "date" }
+  ],
+  "fields": [
+    {
+      "key": "name",
+      "label": "Nombre completo",
+      "type": "text",
+      "required": true
+    },
+    { "key": "phone", "label": "Teléfono", "type": "tel", "required": true },
+    { "key": "email", "label": "Correo", "type": "email", "required": false },
+    {
+      "key": "preferences",
+      "label": "Preferencias",
+      "type": "textarea",
+      "required": false,
+      "placeholder": "Alergias, mesa favorita, restricciones dietéticas..."
+    }
+  ]
+}

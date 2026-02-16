@@ -6,59 +6,86 @@ import type { Filters } from "./FilterBooking";
 import { useSchema } from "@/entities/schema/useSchema";
 import { useTenant } from "@/entities/tenant/TenantContext";
 
-const MOCK_CLINIC_BOOKINGS = [
-  {
-    patient: "Amanda Chavez",
-    doctor: "Dr. Emily Johnson",
-    service: "Fisioterapia",
-    date: "2025-05-13",
-    time: "11:00 - 12:00",
-    status: "Pending",
-  },
-  {
-    patient: "Jasmine Palmer",
-    doctor: "Dr. Carlos Martínez",
-    service: "Terapia Ocupacional",
-    date: "2025-05-14",
-    time: "09:00 - 10:00",
-    status: "Confirmed",
-  },
-  {
-    patient: "Randy Elliot",
-    doctor: "Dra. Ana Pérez",
-    service: "Psicología",
-    date: "2025-05-14",
-    time: "10:30 - 11:30",
-    status: "Cancelled",
-  },
-];
-
-const MOCK_BARBER_BOOKINGS = [
-  {
-    client: "Carlos Rivera",
-    barber: "Marco Jiménez",
-    service: "Fade",
-    date: "2025-05-13",
-    time: "10:00 - 10:30",
-    status: "Confirmed",
-  },
-  {
-    client: "Andrés Mora",
-    barber: "David Solano",
-    service: "Corte + Barba",
-    date: "2025-05-14",
-    time: "11:00 - 11:45",
-    status: "Pending",
-  },
-  {
-    client: "Kevin Soto",
-    barber: "José Ureña",
-    service: "Tinte",
-    date: "2025-05-14",
-    time: "14:00 - 15:00",
-    status: "Cancelled",
-  },
-];
+const MOCK_DATA: Record<string, Record<string, string>[]> = {
+  clinic: [
+    {
+      patient: "Amanda Chavez",
+      doctor: "Dr. Emily Johnson",
+      service: "Fisioterapia",
+      date: "2025-05-13",
+      time: "11:00 - 12:00",
+      status: "Pending",
+    },
+    {
+      patient: "Jasmine Palmer",
+      doctor: "Dr. Carlos Martínez",
+      service: "Terapia Ocupacional",
+      date: "2025-05-14",
+      time: "09:00 - 10:00",
+      status: "Confirmed",
+    },
+    {
+      patient: "Randy Elliot",
+      doctor: "Dra. Ana Pérez",
+      service: "Psicología",
+      date: "2025-05-14",
+      time: "10:30 - 11:30",
+      status: "Cancelled",
+    },
+  ],
+  barbershop: [
+    {
+      client: "Carlos Rivera",
+      barber: "Marco Jiménez",
+      service: "Fade",
+      date: "2025-05-13",
+      time: "10:00 - 10:30",
+      status: "Confirmed",
+    },
+    {
+      client: "Andrés Mora",
+      barber: "David Solano",
+      service: "Corte + Barba",
+      date: "2025-05-14",
+      time: "11:00 - 11:45",
+      status: "Pending",
+    },
+    {
+      client: "Kevin Soto",
+      barber: "José Ureña",
+      service: "Tinte",
+      date: "2025-05-14",
+      time: "14:00 - 15:00",
+      status: "Cancelled",
+    },
+  ],
+  restaurant: [
+    {
+      client: "Isabel Quesada",
+      table: "Mesa 3",
+      guests: "4",
+      date: "2025-05-13",
+      time: "19:00 - 21:00",
+      status: "Confirmed",
+    },
+    {
+      client: "Roberto Arias",
+      table: "VIP",
+      guests: "8",
+      date: "2025-05-14",
+      time: "20:00 - 22:00",
+      status: "Pending",
+    },
+    {
+      client: "María José Soto",
+      table: "Terraza A",
+      guests: "2",
+      date: "2025-05-14",
+      time: "13:00 - 14:30",
+      status: "Confirmed",
+    },
+  ],
+};
 
 export default function BookingTable() {
   const schema = useSchema("bookings");
@@ -71,8 +98,7 @@ export default function BookingTable() {
     search: "",
   });
 
-  const mockData =
-    tenant.type === "barbershop" ? MOCK_BARBER_BOOKINGS : MOCK_CLINIC_BOOKINGS;
+  const mockData = MOCK_DATA[tenant.type] ?? MOCK_DATA.clinic;
 
   const schemaColumns: Column[] = schema
     ? schema.columns.map((col) => ({
@@ -86,10 +112,8 @@ export default function BookingTable() {
     return mockData
       .filter((b) => {
         const d = new Date(b.date);
-
         if (filters.startDate && d < filters.startDate) return false;
         if (filters.endDate && d > filters.endDate) return false;
-
         if (filters.status && b.status !== filters.status) return false;
 
         const q = filters.search.toLowerCase();
@@ -97,13 +121,12 @@ export default function BookingTable() {
           const values = Object.values(b).join(" ").toLowerCase();
           if (!values.includes(q)) return false;
         }
-
         return true;
       })
       .map((b) => {
         const row: Data = {};
         schemaColumns.forEach((col) => {
-          row[col.id] = (b as Record<string, string>)[col.id] ?? "";
+          row[col.id] = b[col.id] ?? "";
         });
         return row;
       });
@@ -111,13 +134,17 @@ export default function BookingTable() {
 
   if (!schema) {
     return (
-      <div className="p-6 text-gray-500">Schema de bookings no encontrado.</div>
+      <div className="p-6 text-gray-500 dark:text-neutral-400">
+        Schema de bookings no encontrado.
+      </div>
     );
   }
 
   return (
     <>
-      <h1 className="mb-4 text-xl font-semibold">{schema.title}</h1>
+      <h1 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
+        {schema.title}
+      </h1>
       <FilterBooking onFilterChange={setFilters} />
       <StickyHeadTable columns={schemaColumns} rows={rows} />
     </>
