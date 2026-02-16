@@ -117,7 +117,7 @@ export default function FilterBooking({ onFilterChange }: Props) {
 
       <TextField
         size="small"
-        placeholder="Search patient, doctor, service…"
+        placeholder="Buscar..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         InputProps={{

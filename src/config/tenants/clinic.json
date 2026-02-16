@@ -1,18 +1,35 @@
 {
-  "id": "clinic-demo",
+  "id": "clinic",
   "name": "Clínica Vida Sana",
   "type": "clinic",
-  "features": {
-    "dashboard": { "enabled": true, "label": "Panel Principal" },
-    "bookings": { "enabled": true, "label": "Citas", "path": "/bookings" },
-    "patients": { "enabled": true, "label": "Pacientes" },
-    "staff": { "enabled": true, "label": "Doctores" },
-    "inventory": { "enabled": false },
-    "billing": { "enabled": false },
-    "settings": { "enabled": true, "label": "Configuración" }
-  },
+  "schemaDir": "clinic",
   "branding": {
+    "logo": "/logo-clinic.png",
     "primaryColor": "#0ea5e9",
+    "accentColor": "#38bdf8",
     "theme": "light"
-  }
+  },
+  "features": {
+    "dashboard": { "enabled": true, "label": "Panel" },
+    "bookings": { "enabled": true, "label": "Citas" },
+    "newBooking": { "enabled": true, "label": "Nueva Cita" },
+    "staff": { "enabled": true, "label": "Doctores" },
+    "patients": { "enabled": true, "label": "Pacientes" },
+    "settings": { "enabled": true, "label": "Configuración" },
+    "profile": { "enabled": true, "label": "Perfil" },
+    "inventory": { "enabled": false },
+    "billing": { "enabled": false }
+  },
+  "navigation": [
+    { "featureKey": "dashboard", "icon": "Home", "path": "/" },
+    { "featureKey": "bookings", "icon": "Calendar", "path": "/bookings" },
+    {
+      "featureKey": "newBooking",
+      "icon": "CalendarPlus",
+      "path": "/new-booking"
+    },
+    { "featureKey": "staff", "icon": "User", "path": "/users" },
+    { "featureKey": "patients", "icon": "UsersRound", "path": "/customers" },
+    { "featureKey": "settings", "icon": "Settings", "path": "/settings" }
+  ]
 }

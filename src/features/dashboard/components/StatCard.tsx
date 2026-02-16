@@ -1,7 +1,7 @@
 interface Props {
   label: string;
   value: number;
-  delta: number; 
+  delta: number;
 }
 
 export const StatCard = ({ label, value, delta }: Props) => (
@@ -9,7 +9,8 @@ export const StatCard = ({ label, value, delta }: Props) => (
     <p className="text-sm text-gray-500">{label}</p>
     <p className="text-2xl font-semibold">{value.toLocaleString()}</p>
     <p className={`text-sm ${delta >= 0 ? "text-green-600" : "text-red-600"}`}>
-      {delta > 0 ? "▲" : "▼"} {Math.abs(delta)}% {delta > 0 ? "Up" : "Down"} from yesterday
+      {delta > 0 ? "▲" : "▼"} {Math.abs(delta)}% {delta > 0 ? "más" : "menos"}{" "}
+      que ayer
     </p>
   </div>
 );

@@ -1,0 +1,34 @@
+{
+  "id": "barbershop",
+  "name": "BarberKing Studio",
+  "type": "barbershop",
+  "schemaDir": "barbershop",
+  "branding": {
+    "logo": "/logo-barber.png",
+    "primaryColor": "#d97706",
+    "accentColor": "#f59e0b",
+    "theme": "dark"
+  },
+  "features": {
+    "dashboard": { "enabled": true, "label": "Inicio" },
+    "bookings": { "enabled": true, "label": "Reservas" },
+    "newBooking": { "enabled": true, "label": "Nueva Reserva" },
+    "staff": { "enabled": true, "label": "Barberos" },
+    "patients": { "enabled": false },
+    "settings": { "enabled": true, "label": "Ajustes" },
+    "profile": { "enabled": true, "label": "Mi Perfil" },
+    "inventory": { "enabled": false },
+    "billing": { "enabled": false }
+  },
+  "navigation": [
+    { "featureKey": "dashboard", "icon": "Home", "path": "/" },
+    { "featureKey": "bookings", "icon": "Calendar", "path": "/bookings" },
+    {
+      "featureKey": "newBooking",
+      "icon": "CalendarPlus",
+      "path": "/new-booking"
+    },
+    { "featureKey": "staff", "icon": "User", "path": "/users" },
+    { "featureKey": "settings", "icon": "Settings", "path": "/settings" }
+  ]
+}

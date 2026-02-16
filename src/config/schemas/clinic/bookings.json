@@ -1,0 +1,44 @@
+{
+  "entity": "bookings",
+  "title": "Citas",
+  "columns": [
+    { "key": "patient", "label": "Paciente", "type": "text" },
+    { "key": "doctor", "label": "Doctor", "type": "text" },
+    { "key": "service", "label": "Servicio", "type": "badge" },
+    { "key": "date", "label": "Fecha", "type": "date" },
+    { "key": "time", "label": "Hora", "type": "text" },
+    { "key": "status", "label": "Estado", "type": "badge" }
+  ],
+  "fields": [
+    { "key": "patient", "label": "Paciente", "type": "text", "required": true },
+    {
+      "key": "doctor",
+      "label": "Doctor",
+      "type": "select",
+      "required": true,
+      "options": []
+    },
+    {
+      "key": "service",
+      "label": "Servicio",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Consulta General",
+        "Control",
+        "Emergencia",
+        "Examen",
+        "Terapia"
+      ]
+    },
+    { "key": "date", "label": "Fecha", "type": "date", "required": true },
+    {
+      "key": "time",
+      "label": "Hora",
+      "type": "text",
+      "required": true,
+      "placeholder": "10:00"
+    },
+    { "key": "notes", "label": "Notas", "type": "textarea" }
+  ]
+}

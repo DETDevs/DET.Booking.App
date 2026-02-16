@@ -1,0 +1,47 @@
+{
+  "entity": "clients",
+  "title": "Clientes",
+  "columns": [
+    { "key": "name", "label": "Nombre", "type": "text" },
+    { "key": "phone", "label": "Teléfono", "type": "text" },
+    { "key": "preferredStyle", "label": "Estilo preferido", "type": "badge" },
+    { "key": "lastVisit", "label": "Última visita", "type": "date" }
+  ],
+  "fields": [
+    {
+      "key": "name",
+      "label": "Nombre",
+      "type": "text",
+      "required": true,
+      "placeholder": "Nombre del cliente"
+    },
+    {
+      "key": "phone",
+      "label": "Teléfono",
+      "type": "tel",
+      "required": true,
+      "placeholder": "8888-8888"
+    },
+    {
+      "key": "preferredStyle",
+      "label": "Estilo preferido",
+      "type": "select",
+      "options": [
+        "Clásico",
+        "Fade",
+        "Degradado",
+        "Pompadour",
+        "Buzz Cut",
+        "Afro",
+        "Mohawk",
+        "Otro"
+      ]
+    },
+    {
+      "key": "notes",
+      "label": "Notas",
+      "type": "textarea",
+      "placeholder": "Preferencias, alergias a productos..."
+    }
+  ]
+}

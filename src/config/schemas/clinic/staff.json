@@ -1,0 +1,52 @@
+{
+  "entity": "staff",
+  "title": "Doctores",
+  "columns": [
+    { "key": "name", "label": "Nombre", "type": "text" },
+    { "key": "specialty", "label": "Especialidad", "type": "badge" },
+    { "key": "license", "label": "Colegiatura", "type": "text" },
+    { "key": "phone", "label": "Teléfono", "type": "text" },
+    { "key": "office", "label": "Consultorio", "type": "text" },
+    { "key": "available", "label": "Disponible", "type": "boolean" }
+  ],
+  "fields": [
+    {
+      "key": "name",
+      "label": "Nombre completo",
+      "type": "text",
+      "required": true
+    },
+    {
+      "key": "specialty",
+      "label": "Especialidad",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Medicina General",
+        "Pediatría",
+        "Dermatología",
+        "Cardiología",
+        "Odontología",
+        "Fisioterapia",
+        "Psicología",
+        "Nutrición"
+      ]
+    },
+    {
+      "key": "license",
+      "label": "No. Colegiatura",
+      "type": "text",
+      "required": true,
+      "placeholder": "MED-0000"
+    },
+    { "key": "phone", "label": "Teléfono", "type": "tel", "required": true },
+    { "key": "email", "label": "Correo", "type": "email" },
+    {
+      "key": "office",
+      "label": "Consultorio",
+      "type": "text",
+      "placeholder": "Ej: 2do piso, oficina 204"
+    },
+    { "key": "available", "label": "Disponible", "type": "checkbox" }
+  ]
+}

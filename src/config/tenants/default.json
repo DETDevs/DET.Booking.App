@@ -1,14 +1,34 @@
 {
   "id": "default",
-  "name": "DET Booking App",
+  "name": "DET Booking",
   "type": "generic",
+  "schemaDir": "clinic",
+  "branding": {
+    "primaryColor": "#6366f1",
+    "accentColor": "#818cf8",
+    "theme": "light"
+  },
   "features": {
     "dashboard": { "enabled": true },
     "bookings": { "enabled": true },
-    "patients": { "enabled": true },
+    "newBooking": { "enabled": true },
     "staff": { "enabled": true },
+    "patients": { "enabled": true },
+    "settings": { "enabled": true },
+    "profile": { "enabled": true },
     "inventory": { "enabled": true },
-    "billing": { "enabled": true },
-    "settings": { "enabled": true }
-  }
+    "billing": { "enabled": true }
+  },
+  "navigation": [
+    { "featureKey": "dashboard", "icon": "Home", "path": "/" },
+    { "featureKey": "bookings", "icon": "Calendar", "path": "/bookings" },
+    {
+      "featureKey": "newBooking",
+      "icon": "CalendarPlus",
+      "path": "/new-booking"
+    },
+    { "featureKey": "staff", "icon": "User", "path": "/users" },
+    { "featureKey": "patients", "icon": "UsersRound", "path": "/customers" },
+    { "featureKey": "settings", "icon": "Settings", "path": "/settings" }
+  ]
 }

@@ -3,19 +3,67 @@ import StickyHeadTable from "@/shared/ui/Table";
 import type { Column, Data } from "@/shared/ui/Table";
 import FilterBooking from "./FilterBooking";
 import type { Filters } from "./FilterBooking";
-import { bookingsData } from "@/features/booking-list/data/bookingsData";
+import { useSchema } from "@/entities/schema/useSchema";
+import { useTenant } from "@/entities/tenant/TenantContext";
 
-/* ----- columnas para la tabla ----- */
-const columns: Column[] = [
-  { id: "patient", label: "Paciente", minWidth: 150 },
-  { id: "doctor", label: "Doctor", minWidth: 150 },
-  { id: "service", label: "Servicio", minWidth: 150 },
-  { id: "date", label: "Fecha", minWidth: 110 },
-  { id: "time", label: "Hora", minWidth: 110 },
-  { id: "status", label: "Estado", minWidth: 110 },
+const MOCK_CLINIC_BOOKINGS = [
+  {
+    patient: "Amanda Chavez",
+    doctor: "Dr. Emily Johnson",
+    service: "Fisioterapia",
+    date: "2025-05-13",
+    time: "11:00 - 12:00",
+    status: "Pending",
+  },
+  {
+    patient: "Jasmine Palmer",
+    doctor: "Dr. Carlos Martínez",
+    service: "Terapia Ocupacional",
+    date: "2025-05-14",
+    time: "09:00 - 10:00",
+    status: "Confirmed",
+  },
+  {
+    patient: "Randy Elliot",
+    doctor: "Dra. Ana Pérez",
+    service: "Psicología",
+    date: "2025-05-14",
+    time: "10:30 - 11:30",
+    status: "Cancelled",
+  },
+];
+
+const MOCK_BARBER_BOOKINGS = [
+  {
+    client: "Carlos Rivera",
+    barber: "Marco Jiménez",
+    service: "Fade",
+    date: "2025-05-13",
+    time: "10:00 - 10:30",
+    status: "Confirmed",
+  },
+  {
+    client: "Andrés Mora",
+    barber: "David Solano",
+    service: "Corte + Barba",
+    date: "2025-05-14",
+    time: "11:00 - 11:45",
+    status: "Pending",
+  },
+  {
+    client: "Kevin Soto",
+    barber: "José Ureña",
+    service: "Tinte",
+    date: "2025-05-14",
+    time: "14:00 - 15:00",
+    status: "Cancelled",
+  },
 ];
 
 export default function BookingTable() {
+  const schema = useSchema("bookings");
+  const tenant = useTenant();
+
   const [filters, setFilters] = useState<Filters>({
     startDate: undefined,
     endDate: undefined,
@@ -23,50 +71,55 @@ export default function BookingTable() {
     search: "",
   });
 
-  /* ---------- filtrado ---------- */
+  const mockData =
+    tenant.type === "barbershop" ? MOCK_BARBER_BOOKINGS : MOCK_CLINIC_BOOKINGS;
+
+  const schemaColumns: Column[] = schema
+    ? schema.columns.map((col) => ({
+        id: col.key,
+        label: col.label,
+        minWidth: col.key === "status" ? 110 : 150,
+      }))
+    : [];
+
   const rows: Data[] = useMemo(() => {
-    return bookingsData
+    return mockData
       .filter((b) => {
         const d = new Date(b.date);
 
-        // rango de fechas
         if (filters.startDate && d < filters.startDate) return false;
         if (filters.endDate && d > filters.endDate) return false;
 
-        // estado
         if (filters.status && b.status !== filters.status) return false;
 
-        // búsqueda global
         const q = filters.search.toLowerCase();
         if (q) {
-          const hay =
-            b.patient.toLowerCase().includes(q) ||
-            b.doctor.toLowerCase().includes(q) ||
-            b.service.toLowerCase().includes(q) ||
-            b.status.toLowerCase().includes(q);
-          if (!hay) return false;
+          const values = Object.values(b).join(" ").toLowerCase();
+          if (!values.includes(q)) return false;
         }
 
         return true;
       })
-      .map((b) => ({
-        patient: b.patient,
-        doctor: b.doctor,
-        service: b.service,
-        date: b.date,
-        time: b.time,
-        status: b.status,
-      }));
-  }, [filters]);
+      .map((b) => {
+        const row: Data = {};
+        schemaColumns.forEach((col) => {
+          row[col.id] = (b as Record<string, string>)[col.id] ?? "";
+        });
+        return row;
+      });
+  }, [filters, mockData, schemaColumns]);
 
-  /* ---------- UI ---------- */
+  if (!schema) {
+    return (
+      <div className="p-6 text-gray-500">Schema de bookings no encontrado.</div>
+    );
+  }
+
   return (
     <>
-      <h1 className="mb-4 text-xl font-semibold">Booking List</h1>
-
+      <h1 className="mb-4 text-xl font-semibold">{schema.title}</h1>
       <FilterBooking onFilterChange={setFilters} />
-
-      <StickyHeadTable columns={columns} rows={rows} />
+      <StickyHeadTable columns={schemaColumns} rows={rows} />
     </>
   );
 }

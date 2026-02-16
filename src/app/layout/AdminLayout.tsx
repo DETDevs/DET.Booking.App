@@ -2,56 +2,35 @@ import { Outlet } from "react-router-dom";
 import { Sidebar, SidebarBody, SidebarLink } from "@/shared/ui/Sidebar";
 import { Header } from "@/shared/ui/Header";
 import { usePendingBookings } from "@/features/dashboard/hooks/usePendingBookings";
-import {
-  Home,
-  Calendar,
-  Settings,
-  CalendarPlus,
-  User,
-  UsersRound,
-} from "lucide-react";
+import { useTenant } from "@/entities/tenant/TenantContext";
+import { resolveIcon } from "@/shared/lib/iconResolver";
 
 function AdminLayout() {
   const { data: pending = 0 } = usePendingBookings();
+  const tenant = useTenant();
+
+  const navItems = tenant.navigation
+    .filter((item) => {
+      const feature = tenant.features[item.featureKey];
+      return feature?.enabled !== false;
+    })
+    .map((item) => {
+      const feature = tenant.features[item.featureKey];
+      const Icon = resolveIcon(item.icon);
+      return {
+        href: item.path,
+        icon: <Icon size={20} />,
+        label: feature?.label ?? item.featureKey,
+      };
+    });
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
       <Sidebar animate>
         <SidebarBody>
-          <SidebarLink
-            link={{ href: "/", icon: <Home size={20} />, label: "Dashboard" }}
-          />
-          <SidebarLink
-            link={{
-              href: "/bookings",
-              icon: <Calendar size={20} />,
-              label: "Bookings List",
-            }}
-          />
-          <SidebarLink
-            link={{
-              href: "/new-booking",
-              icon: <CalendarPlus size={20} />,
-              label: "New Booking",
-            }}
-          />
-          <SidebarLink
-            link={{ href: "/users", icon: <User size={20} />, label: "Users" }}
-          />
-          <SidebarLink
-            link={{
-              href: "/customer",
-              icon: <UsersRound size={20} />,
-              label: "Customers",
-            }}
-          />
-          <SidebarLink
-            link={{
-              href: "/settings",
-              icon: <Settings size={20} />,
-              label: "Settings",
-            }}
-          />
+          {navItems.map((link) => (
+            <SidebarLink key={link.href} link={link} />
+          ))}
         </SidebarBody>
       </Sidebar>
 

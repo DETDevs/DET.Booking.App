@@ -1,0 +1,21 @@
+{
+  "entity": "dashboard",
+  "title": "Panel",
+  "kpis": [
+    { "key": "totalBookings", "label": "Total Citas" },
+    { "key": "pendingApproval", "label": "Pendientes" },
+    { "key": "today", "label": "Hoy" },
+    { "key": "totalPatients", "label": "Pacientes" }
+  ],
+  "previewTitle": "Citas recientes",
+  "previewActions": {
+    "accept": "Aceptar cita",
+    "decline": "Rechazar"
+  },
+  "previewFields": {
+    "name": "Paciente",
+    "service": "Servicio",
+    "date": "Fecha",
+    "time": "Hora"
+  }
+}

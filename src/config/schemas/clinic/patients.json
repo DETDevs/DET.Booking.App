@@ -1,0 +1,61 @@
+{
+  "entity": "patients",
+  "title": "Pacientes",
+  "columns": [
+    { "key": "name", "label": "Nombre", "type": "text" },
+    { "key": "cedula", "label": "Cédula", "type": "text" },
+    { "key": "phone", "label": "Teléfono", "type": "text" },
+    { "key": "email", "label": "Correo", "type": "text" },
+    { "key": "bloodType", "label": "Tipo de sangre", "type": "badge" },
+    { "key": "allergies", "label": "Alergias", "type": "text" },
+    { "key": "insurance", "label": "Seguro médico", "type": "text" }
+  ],
+  "fields": [
+    {
+      "key": "name",
+      "label": "Nombre completo",
+      "type": "text",
+      "required": true,
+      "placeholder": "Ej: María López"
+    },
+    {
+      "key": "cedula",
+      "label": "Cédula / ID",
+      "type": "text",
+      "required": true,
+      "placeholder": "0-0000-0000"
+    },
+    {
+      "key": "phone",
+      "label": "Teléfono",
+      "type": "tel",
+      "required": true,
+      "placeholder": "8888-8888"
+    },
+    {
+      "key": "email",
+      "label": "Correo electrónico",
+      "type": "email",
+      "required": false,
+      "placeholder": "correo@ejemplo.com"
+    },
+    {
+      "key": "bloodType",
+      "label": "Tipo de sangre",
+      "type": "select",
+      "options": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+    },
+    {
+      "key": "allergies",
+      "label": "Alergias",
+      "type": "textarea",
+      "placeholder": "Penicilina, mariscos..."
+    },
+    {
+      "key": "insurance",
+      "label": "Seguro médico",
+      "type": "text",
+      "placeholder": "Nombre de la aseguradora"
+    }
+  ]
+}

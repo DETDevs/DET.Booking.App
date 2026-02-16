@@ -1,29 +1,28 @@
 export interface TenantConfig {
     id: string;
     name: string;
-    type: "clinic" | "restaurant" | "hotel" | "generic";
+    type: "clinic" | "restaurant" | "hotel" | "barbershop" | "generic";
+    schemaDir: string;
+    branding?: TenantBranding;
+    features: Record<string, FeatureConfig>;
+    navigation: NavigationItem[];
+}
+
+export interface TenantBranding {
     logo?: string;
     primaryColor?: string;
+    accentColor?: string;
     theme?: "light" | "dark";
-    features: {
-        dashboard: FeatureConfig;
-        bookings: BookingFeatureConfig;
-        patients: FeatureConfig; // Replaces CustomerPage
-        staff: FeatureConfig;   // Replaces UsersPage
-        inventory?: FeatureConfig;
-        billing?: FeatureConfig;
-        settings: FeatureConfig;
-    };
 }
 
 export interface FeatureConfig {
     enabled: boolean;
-    label?: string; // Override default label (e.g. "Doctores" instead of "Users")
-    path?: string;  // Override default path
+    label?: string;
+    path?: string;
 }
 
-export interface BookingFeatureConfig extends FeatureConfig {
-    allowGuestBooking?: boolean;
-    requiresApproval?: boolean;
-    calendarView?: "day" | "week" | "month";
+export interface NavigationItem {
+    featureKey: string;
+    icon: string;
+    path: string;
 }

@@ -1,0 +1,46 @@
+{
+  "entity": "bookings",
+  "title": "Reservas",
+  "columns": [
+    { "key": "client", "label": "Cliente", "type": "text" },
+    { "key": "barber", "label": "Barbero", "type": "text" },
+    { "key": "service", "label": "Servicio", "type": "badge" },
+    { "key": "date", "label": "Fecha", "type": "date" },
+    { "key": "time", "label": "Hora", "type": "text" },
+    { "key": "status", "label": "Estado", "type": "badge" }
+  ],
+  "fields": [
+    { "key": "client", "label": "Cliente", "type": "text", "required": true },
+    {
+      "key": "barber",
+      "label": "Barbero",
+      "type": "select",
+      "required": true,
+      "options": []
+    },
+    {
+      "key": "service",
+      "label": "Servicio",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Corte clásico",
+        "Fade",
+        "Barba",
+        "Corte + Barba",
+        "Cejas",
+        "Tinte",
+        "Tratamiento capilar"
+      ]
+    },
+    { "key": "date", "label": "Fecha", "type": "date", "required": true },
+    {
+      "key": "time",
+      "label": "Hora",
+      "type": "text",
+      "required": true,
+      "placeholder": "10:00"
+    },
+    { "key": "notes", "label": "Notas", "type": "textarea" }
+  ]
+}
