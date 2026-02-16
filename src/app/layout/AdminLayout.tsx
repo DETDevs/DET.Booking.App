@@ -30,13 +30,13 @@ function AdminLayout() {
           />
           <SidebarLink
             link={{
-              href: "/makebook",
+              href: "/new-booking",
               icon: <CalendarPlus size={20} />,
-              label: "Make Booking",
+              label: "New Booking",
             }}
           />
           <SidebarLink
-            link={{ href: "/user", icon: <User size={20} />, label: "Users" }}
+            link={{ href: "/users", icon: <User size={20} />, label: "Users" }}
           />
           <SidebarLink
             link={{

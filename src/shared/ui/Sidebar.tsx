@@ -1,8 +1,9 @@
-"use client";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { SimpleTooltip } from "./SimpleTooltip";
+import { Link } from "react-router-dom";
 
 interface Links {
   label: string;
@@ -17,7 +18,7 @@ interface SidebarContextProps {
 }
 
 const SidebarContext = createContext<SidebarContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 export const useSidebar = () => {
@@ -39,10 +40,22 @@ export const SidebarProvider = ({
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   animate?: boolean;
 }) => {
-  const [openState, setOpenState] = useState(false);
+  const [openState, setOpenState] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("sidebar:open");
+      return saved === "true";
+    }
+    return false;
+  });
 
   const open = openProp !== undefined ? openProp : openState;
   const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
+
+  React.useEffect(() => {
+    if (openProp === undefined) {
+      localStorage.setItem("sidebar:open", String(openState));
+    }
+  }, [openState, openProp]);
 
   return (
     <SidebarContext.Provider value={{ open, setOpen, animate: animate }}>
@@ -69,7 +82,11 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
+export const SidebarBody = (
+  props: React.ComponentProps<typeof motion.div> & {
+    children?: React.ReactNode;
+  },
+) => {
   return (
     <>
       <DesktopSidebar {...props} />
@@ -82,25 +99,39 @@ export const DesktopSidebar = ({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof motion.div>) => {
+}: React.ComponentProps<typeof motion.div> & {
+  children?: React.ReactNode;
+}) => {
   const { open, setOpen, animate } = useSidebar();
   return (
-    <>
-      <motion.div
+    <motion.div
+      className={cn(
+        "h-full px-4 py-4 hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 shrink-0 relative overflow-y-auto overflow-x-visible",
+        className,
+      )}
+      animate={{
+        width: animate ? (open ? "260px" : "60px") : "260px",
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      {...props}
+    >
+      {children}
+
+      <button
+        onClick={() => setOpen(!open)}
         className={cn(
-          "h-full px-4 py-4 hidden  md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[300px] shrink-0",
-          className
+          "flex items-center justify-center w-8 h-8 rounded-full shrink-0",
+          "bg-neutral-200 dark:bg-neutral-700",
+          "hover:bg-neutral-300 dark:hover:bg-neutral-600",
+          "text-neutral-600 dark:text-neutral-300",
+          "transition-colors duration-200",
+          "mt-auto self-center",
         )}
-        animate={{
-          width: animate ? (open ? "300px" : "60px") : "300px",
-        }}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        {...props}
+        aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
       >
-        {children}
-      </motion.div>
-    </>
+        {open ? <ChevronsLeft size={16} /> : <ChevronsRight size={16} />}
+      </button>
+    </motion.div>
   );
 };
 
@@ -114,13 +145,13 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full"
+          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
         )}
         {...props}
       >
         <div className="flex justify-end z-20 w-full">
           <Menu
-            className="text-neutral-800 dark:text-neutral-200"
+            className="text-neutral-800 dark:text-neutral-200 cursor-pointer"
             onClick={() => setOpen(!open)}
           />
         </div>
@@ -133,7 +164,7 @@ export const MobileSidebar = ({
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className={cn(
                 "fixed top-0 left-0 h-full w-3/4 max-w-xs bg-white dark:bg-neutral-900 p-4 z-50 flex flex-col",
-                className
+                className,
               )}
             >
               <div className="flex items-center justify-between mb-4">
@@ -141,7 +172,7 @@ export const MobileSidebar = ({
                   Menu
                 </span>
                 <X
-                  className="text-neutral-800 dark:text-neutral-200"
+                  className="text-neutral-800 dark:text-neutral-200 cursor-pointer"
                   onClick={() => setOpen(false)}
                 />
               </div>
@@ -163,26 +194,33 @@ export const SidebarLink = ({
   className?: string;
 }) => {
   const { open, animate } = useSidebar();
-  return (
-    <a
-      href={link.href}
-      className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
-        className
-      )}
-      {...props}
-    >
-      {link.icon}
 
-      <motion.span
-        animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+  return (
+    <SimpleTooltip content={link.label} enabled={!open}>
+      <Link
+        to={link.href}
+        className={cn(
+          "flex items-center justify-start gap-2 group/sidebar py-2 rounded-md px-1 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 w-full",
+          className,
+        )}
+        {...props}
       >
-        {link.label}
-      </motion.span>
-    </a>
+        <span className="shrink-0">{link.icon}</span>
+
+        <motion.span
+          animate={{
+            display: animate
+              ? open
+                ? "inline-block"
+                : "none"
+              : "inline-block",
+            opacity: animate ? (open ? 1 : 0) : 1,
+          }}
+          className="text-neutral-700 dark:text-neutral-200 text-sm whitespace-pre inline-block !p-0 !m-0"
+        >
+          {link.label}
+        </motion.span>
+      </Link>
+    </SimpleTooltip>
   );
 };

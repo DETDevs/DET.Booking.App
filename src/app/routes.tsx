@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
-import { Loading } from "./app/layout/Loading";
+import { Loading } from "./layout/Loading";
 
 import {
   BookingsPage,
@@ -8,11 +8,11 @@ import {
   LoginPage,
   ProfilePage,
   SettingsPage,
-  MakeBookPage,
-  UsuarioPage,
+  NewBookingPage,
+  UsersPage,
   CustomerPage,
   AdminLayout,
-  Layout,
+  MainLayout,
 } from "./lazyPages";
 
 export const AppRoutes = () => (
@@ -23,7 +23,7 @@ export const AppRoutes = () => (
       <Route
         element={
           <Suspense fallback={<Loading />}>
-            <Layout />
+            <MainLayout />
           </Suspense>
         }
       >
@@ -31,14 +31,13 @@ export const AppRoutes = () => (
           <Route index element={<DashboardPage />} />
           <Route path="bookings" element={<BookingsPage />} />
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="makebook" element={<MakeBookPage />} />
-          <Route path="user" element={<UsuarioPage />} />
+          <Route path="new-booking" element={<NewBookingPage />} />
+          <Route path="users" element={<UsersPage />} />
           <Route path="customer" element={<CustomerPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Route>
 
-      {/* Ruta 404 */}
       <Route path="*" element={<div className="p-10">404 – Not found</div>} />
     </Routes>
   </Suspense>

@@ -1,13 +1,6 @@
 
-export interface Booking {
-  id: string;
-  patient: string;
-  doctor: string;
-  service: string;
-  date: string;      // ISO yyyy-MM-dd
-  time: string;      // e.g. "11:00 - 12:00"
-  status: string;    // Debe coincidir exactamente con los valores del filtro
-}
+import type { Booking } from "@/shared/types/booking";
+
 
 export const bookingsData: Booking[] = [
   {

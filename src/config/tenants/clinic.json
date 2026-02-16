@@ -1,0 +1,18 @@
+{
+  "id": "clinic-demo",
+  "name": "Clínica Vida Sana",
+  "type": "clinic",
+  "features": {
+    "dashboard": { "enabled": true, "label": "Panel Principal" },
+    "bookings": { "enabled": true, "label": "Citas", "path": "/bookings" },
+    "patients": { "enabled": true, "label": "Pacientes" },
+    "staff": { "enabled": true, "label": "Doctores" },
+    "inventory": { "enabled": false },
+    "billing": { "enabled": false },
+    "settings": { "enabled": true, "label": "Configuración" }
+  },
+  "branding": {
+    "primaryColor": "#0ea5e9",
+    "theme": "light"
+  }
+}

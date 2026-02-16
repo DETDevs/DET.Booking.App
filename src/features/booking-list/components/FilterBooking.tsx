@@ -1,13 +1,8 @@
-"use client";
 import { useState, useEffect } from "react";
 import { TextField, Button, MenuItem, InputAdornment } from "@mui/material";
 import { RotateCcw, Search } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@/components/ui/popover";
+import { Calendar } from "@/shared/ui/Calendar";
+import { Popover, PopoverTrigger, PopoverContent } from "@/shared/ui/Popover";
 import { format } from "date-fns";
 
 export interface Filters {

@@ -1,0 +1,14 @@
+{
+  "id": "default",
+  "name": "DET Booking App",
+  "type": "generic",
+  "features": {
+    "dashboard": { "enabled": true },
+    "bookings": { "enabled": true },
+    "patients": { "enabled": true },
+    "staff": { "enabled": true },
+    "inventory": { "enabled": true },
+    "billing": { "enabled": true },
+    "settings": { "enabled": true }
+  }
+}

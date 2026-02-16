@@ -1,7 +1,7 @@
-import { Footer } from "./shared/ui/Footer";
+import { Footer } from "@/shared/ui/Footer";
 import { Outlet } from "react-router-dom";
 
-const Layout = () => {
+const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow">
@@ -12,4 +12,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default MainLayout;
