@@ -13,7 +13,7 @@ interface HistoryEntry {
   date: string;
   service: string;
   staff: string;
-  status: "Confirmed" | "Pending" | "Cancelled";
+  status: "Confirmed" | "Pending" | "Cancelled" | "Completed";
 }
 
 const MOCK_CLIENTS: Record<
@@ -188,6 +188,15 @@ const statusBadge: Record<string, string> = {
   Pending:
     "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400",
   Cancelled: "bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400",
+  Completed:
+    "bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400",
+};
+
+const STATUS_LABELS: Record<string, string> = {
+  Confirmed: "Confirmada",
+  Pending: "Pendiente",
+  Cancelled: "Cancelada",
+  Completed: "Completada",
 };
 
 const ClientDetailPage = () => {
@@ -307,7 +316,7 @@ const ClientDetailPage = () => {
               <span
                 className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${statusBadge[h.status]}`}
               >
-                {h.status}
+                {STATUS_LABELS[h.status] ?? h.status}
               </span>
             </div>
           ))}

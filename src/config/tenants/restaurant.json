@@ -16,6 +16,7 @@
     "calendar": { "enabled": true, "label": "Calendario" },
     "staff": { "enabled": true, "label": "Personal" },
     "patients": { "enabled": true, "label": "Clientes" },
+    "liveOps": { "enabled": true, "label": "Salón" },
     "settings": { "enabled": true, "label": "Configuración" },
     "profile": { "enabled": true, "label": "Mi Perfil" },
     "inventory": { "enabled": true, "label": "Inventario" },
@@ -32,6 +33,7 @@
     },
     { "featureKey": "staff", "icon": "User", "path": "/users" },
     { "featureKey": "patients", "icon": "Users", "path": "/customers" },
+    { "featureKey": "liveOps", "icon": "Activity", "path": "/live" },
     { "featureKey": "settings", "icon": "Settings", "path": "/settings" }
   ]
 }

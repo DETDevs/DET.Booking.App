@@ -18,6 +18,7 @@ import {
   NotFoundPage,
   CalendarPage,
   ClientDetailPage,
+  LiveOpsPage,
 } from "./lazyPages";
 
 const featureRouteMap: Record<
@@ -32,6 +33,7 @@ const featureRouteMap: Record<
   settings: { path: "settings", element: <SettingsPage /> },
   profile: { path: "profile", element: <ProfilePage /> },
   calendar: { path: "calendar", element: <CalendarPage /> },
+  liveOps: { path: "live", element: <LiveOpsPage /> },
 };
 
 export const AppRoutes = () => {

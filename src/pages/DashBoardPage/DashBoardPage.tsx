@@ -2,6 +2,8 @@ import { useSchema } from "@/entities/schema/useSchema";
 import { useTenant } from "@/entities/tenant/TenantContext";
 import { StatCard } from "@/features/dashboard/components/StatCard";
 import { BookingPreviewCard } from "@/features/dashboard/components/BookingPreviewCard";
+import { Link } from "react-router-dom";
+import { Activity, ArrowRight } from "lucide-react";
 
 const MOCK_PREVIEWS: Record<
   string,
@@ -166,6 +168,7 @@ const DashboardPage = () => {
 
   const kpiValues = MOCK_KPIS[tenant.type] ?? MOCK_KPIS.clinic;
   const previews = MOCK_PREVIEWS[tenant.type] ?? MOCK_PREVIEWS.clinic;
+  const primaryColor = tenant.branding?.primaryColor ?? "#6366f1";
 
   return (
     <section className="space-y-8">
@@ -179,6 +182,38 @@ const DashboardPage = () => {
           />
         ))}
       </div>
+
+      <Link
+        to="/live"
+        className="flex items-center justify-between p-4 bg-white dark:bg-neutral-800 rounded-2xl border border-gray-100 dark:border-neutral-700 shadow-sm hover:shadow-md transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center"
+            style={{ backgroundColor: `${primaryColor}15` }}
+          >
+            <Activity size={18} style={{ color: primaryColor }} />
+          </div>
+          <div>
+            <div className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+              {tenant.features.liveOps?.label ?? "Operaciones"}
+              <span className="flex items-center gap-1 text-[10px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                En vivo
+              </span>
+            </div>
+            <div className="text-xs text-gray-400 dark:text-neutral-500">
+              {tenant.type === "restaurant"
+                ? "Estado de mesas y reservaciones en tiempo real"
+                : "Gestión de citas y atención en tiempo real"}
+            </div>
+          </div>
+        </div>
+        <ArrowRight
+          size={18}
+          className="text-gray-300 dark:text-neutral-600 group-hover:text-gray-500 dark:group-hover:text-neutral-400 transition-colors"
+        />
+      </Link>
 
       <div className="space-y-4">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white">

@@ -20,7 +20,7 @@ interface Booking {
   date: string;
   startHour: number;
   endHour: number;
-  status: "Confirmed" | "Pending" | "Cancelled";
+  status: "Confirmed" | "Pending" | "Cancelled" | "Completed";
 }
 
 const MOCK_BOOKINGS: Record<string, Booking[]> = {
@@ -265,6 +265,18 @@ const statusColors: Record<
     text: "text-red-700 dark:text-red-400",
     border: "border-l-red-500",
   },
+  Completed: {
+    bg: "bg-purple-50 dark:bg-purple-900/30",
+    text: "text-purple-700 dark:text-purple-400",
+    border: "border-l-purple-500",
+  },
+};
+
+const STATUS_LABELS: Record<string, string> = {
+  Confirmed: "Confirmada",
+  Pending: "Pendiente",
+  Cancelled: "Cancelada",
+  Completed: "Completada",
 };
 
 const CalendarPage = () => {
@@ -465,7 +477,7 @@ const BookingDetailModal = ({
               <span
                 className={`inline-block mt-1 text-xs font-semibold px-2.5 py-0.5 rounded-full ${sc.bg} ${sc.text}`}
               >
-                {status}
+                {STATUS_LABELS[status] ?? status}
               </span>
             </div>
             <button
@@ -552,31 +564,51 @@ const BookingDetailModal = ({
             </div>
           )}
 
-          <div className="flex gap-2">
-            {status !== "Confirmed" && (
+          {status === "Completed" ? (
+            <div className="flex items-center justify-center gap-2 py-3 px-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-100 dark:border-purple-800/40">
+              <Check
+                size={16}
+                className="text-purple-600 dark:text-purple-400"
+              />
+              <span className="text-sm font-semibold text-purple-700 dark:text-purple-400">
+                Cita completada exitosamente
+              </span>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              {status === "Pending" && (
+                <button
+                  onClick={() => setStatus("Confirmed")}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-sm font-semibold text-white rounded-xl hover:opacity-90 transition-all cursor-pointer"
+                  style={{ backgroundColor: "#10b981" }}
+                >
+                  <Check size={15} /> Confirmar
+                </button>
+              )}
+              {status === "Confirmed" && (
+                <button
+                  onClick={() => setStatus("Completed")}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-sm font-semibold text-white bg-purple-600 rounded-xl hover:bg-purple-700 transition-all cursor-pointer"
+                >
+                  <Check size={15} /> Completar
+                </button>
+              )}
+              {status !== "Cancelled" && (
+                <button
+                  onClick={() => setStatus("Cancelled")}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-sm font-semibold text-white bg-red-500 rounded-xl hover:bg-red-600 transition-all cursor-pointer"
+                >
+                  <X size={15} /> Cancelar
+                </button>
+              )}
               <button
-                onClick={() => setStatus("Confirmed")}
-                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-sm font-semibold text-white rounded-xl hover:opacity-90 transition-all cursor-pointer"
-                style={{ backgroundColor: "#10b981" }}
+                onClick={() => setShowReschedule(!showReschedule)}
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-sm font-semibold rounded-xl border border-gray-200 dark:border-neutral-600 text-gray-700 dark:text-neutral-300 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-all cursor-pointer"
               >
-                <Check size={15} /> Confirmar
+                <RotateCcw size={15} /> Reprogramar
               </button>
-            )}
-            {status !== "Cancelled" && (
-              <button
-                onClick={() => setStatus("Cancelled")}
-                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-sm font-semibold text-white bg-red-500 rounded-xl hover:bg-red-600 transition-all cursor-pointer"
-              >
-                <X size={15} /> Cancelar
-              </button>
-            )}
-            <button
-              onClick={() => setShowReschedule(!showReschedule)}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 text-sm font-semibold rounded-xl border border-gray-200 dark:border-neutral-600 text-gray-700 dark:text-neutral-300 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-all cursor-pointer"
-            >
-              <RotateCcw size={15} /> Reprogramar
-            </button>
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

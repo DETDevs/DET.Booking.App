@@ -10,7 +10,7 @@ export const bookingsData: Booking[] = [
     service: "Fisioterapia",
     date: "2025-05-13",
     time: "11:00 - 12:00",
-    status: "Pending",     // coincidente con <MenuItem value="Pending">
+    status: "Pending",
   },
   {
     id: "2",
@@ -19,7 +19,7 @@ export const bookingsData: Booking[] = [
     service: "Terapia Ocupacional",
     date: "2025-05-14",
     time: "09:00 - 10:00",
-    status: "Confirmed",   // coincidente con <MenuItem value="Confirmed">
+    status: "Confirmed",
   },
   {
     id: "3",
@@ -28,7 +28,6 @@ export const bookingsData: Booking[] = [
     service: "Psicología",
     date: "2025-05-14",
     time: "10:30 - 11:30",
-    status: "Cancelled",   // coincidente con <MenuItem value="Cancelled">
+    status: "Cancelled",
   },
-  // … añade más citas según necesites …
 ];

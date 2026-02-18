@@ -113,16 +113,16 @@ export default function FilterBooking({ onFilterChange }: Props) {
         <TextField
           select
           size="small"
-          label="Status"
+          label="Estado"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
           className="w-[10rem]"
           sx={fieldSx}
         >
-          <MenuItem value="">All</MenuItem>
-          <MenuItem value="Pending">Pending</MenuItem>
-          <MenuItem value="Confirmed">Confirmed</MenuItem>
-          <MenuItem value="Cancelled">Cancelled</MenuItem>
+          <MenuItem value="">Todos</MenuItem>
+          <MenuItem value="Pending">Pendiente</MenuItem>
+          <MenuItem value="Confirmed">Confirmada</MenuItem>
+          <MenuItem value="Cancelled">Cancelada</MenuItem>
         </TextField>
 
         <Button
@@ -131,7 +131,7 @@ export default function FilterBooking({ onFilterChange }: Props) {
           variant="outlined"
           onClick={reset}
         >
-          Reset
+          Limpiar
         </Button>
       </div>
 

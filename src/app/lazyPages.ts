@@ -51,3 +51,7 @@ export const CalendarPage = lazy(
 export const ClientDetailPage = lazy(
     () => import("@/pages/ClientDetailPage/ClientDetailPage")
 );
+
+export const LiveOpsPage = lazy(
+    () => import("@/pages/LiveOpsPage/LiveOpsPage")
+);
