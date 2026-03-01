@@ -1,0 +1,74 @@
+{
+  "entity": "clients",
+  "title": "Clientes",
+  "columns": [
+    { "key": "name", "label": "Dueño", "type": "text" },
+    { "key": "phone", "label": "Teléfono", "type": "text" },
+    { "key": "petName", "label": "Mascota", "type": "text" },
+    { "key": "petType", "label": "Tipo", "type": "badge" },
+    { "key": "petSize", "label": "Tamaño", "type": "badge" },
+    { "key": "lastVisit", "label": "Última visita", "type": "date" }
+  ],
+  "fields": [
+    {
+      "key": "name",
+      "label": "Nombre del dueño",
+      "type": "text",
+      "required": true,
+      "placeholder": "Nombre completo"
+    },
+    {
+      "key": "phone",
+      "label": "Teléfono",
+      "type": "tel",
+      "required": true,
+      "placeholder": "8888-8888"
+    },
+    {
+      "key": "email",
+      "label": "Correo",
+      "type": "email",
+      "placeholder": "correo@ejemplo.com"
+    },
+    {
+      "key": "petName",
+      "label": "Nombre de la mascota",
+      "type": "text",
+      "required": true,
+      "placeholder": "Ej: Kralos"
+    },
+    {
+      "key": "petType",
+      "label": "Tipo de mascota",
+      "type": "select",
+      "required": true,
+      "options": ["Perro", "Gato"]
+    },
+    {
+      "key": "petBreed",
+      "label": "Raza",
+      "type": "text",
+      "placeholder": "Ej: Golden Retriever"
+    },
+    {
+      "key": "petSize",
+      "label": "Tamaño",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Extra Small",
+        "Small",
+        "Medium",
+        "Large",
+        "XLarge",
+        "XX Large"
+      ]
+    },
+    {
+      "key": "notes",
+      "label": "Notas",
+      "type": "textarea",
+      "placeholder": "Alergias, condiciones especiales, preferencias..."
+    }
+  ]
+}

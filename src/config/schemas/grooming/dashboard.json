@@ -1,0 +1,22 @@
+{
+  "entity": "dashboard",
+  "title": "Inicio",
+  "kpis": [
+    { "key": "totalBookings", "label": "Total Reservas" },
+    { "key": "pendingApproval", "label": "Por confirmar" },
+    { "key": "today", "label": "Hoy" },
+    { "key": "totalClients", "label": "Clientes" }
+  ],
+  "previewTitle": "Próximas reservas",
+  "previewActions": {
+    "accept": "Confirmar",
+    "decline": "Cancelar"
+  },
+  "previewFields": {
+    "name": "Dueño",
+    "pet": "Mascota",
+    "service": "Servicio",
+    "date": "Fecha",
+    "time": "Hora"
+  }
+}

@@ -36,11 +36,14 @@ export const UserMenu = () => {
         onClick={() => setOpen((o) => !o)}
         className="flex items-center gap-2 px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-neutral-700 cursor-pointer transition-colors"
       >
-        <img
-          src="https://fydn.imgix.net/m%2Fgen%2Fart-print-square-p1%2Fd338a134-22d3-47a5-a120-c0c6858d4ee6.jpg?auto=format%2Ccompress&q=75"
-          alt="avatar"
-          className="h-8 w-8 rounded-full object-cover"
-        />
+        <div
+          className="h-8 w-8 rounded-full flex items-center justify-center text-white shrink-0"
+          style={{
+            backgroundColor: tenant.branding?.primaryColor ?? "#6366f1",
+          }}
+        >
+          <User size={16} />
+        </div>
         <div className="hidden sm:flex flex-col text-left leading-tight">
           <span className="text-sm font-medium text-gray-900 dark:text-neutral-100">
             Edwin T

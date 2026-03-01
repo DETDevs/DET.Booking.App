@@ -1,0 +1,39 @@
+{
+  "id": "grooming",
+  "name": "MoPetCo",
+  "type": "grooming",
+  "schemaDir": "grooming",
+  "branding": {
+    "logo": "/logo-grooming.png",
+    "primaryColor": "#e91e8c",
+    "accentColor": "#f472b6",
+    "theme": "dark"
+  },
+  "features": {
+    "dashboard": { "enabled": true, "label": "Inicio" },
+    "bookings": { "enabled": true, "label": "Reservas" },
+    "newBooking": { "enabled": true, "label": "Nueva Reserva" },
+    "calendar": { "enabled": true, "label": "Agenda" },
+    "staff": { "enabled": true, "label": "Groomers" },
+    "patients": { "enabled": true, "label": "Clientes" },
+    "liveOps": { "enabled": true, "label": "Atención" },
+    "settings": { "enabled": true, "label": "Ajustes" },
+    "profile": { "enabled": true, "label": "Mi Perfil" },
+    "inventory": { "enabled": false },
+    "billing": { "enabled": false }
+  },
+  "navigation": [
+    { "featureKey": "dashboard", "icon": "Home", "path": "/" },
+    { "featureKey": "bookings", "icon": "Calendar", "path": "/bookings" },
+    { "featureKey": "calendar", "icon": "CalendarCheck", "path": "/calendar" },
+    {
+      "featureKey": "newBooking",
+      "icon": "CalendarPlus",
+      "path": "/new-booking"
+    },
+    { "featureKey": "staff", "icon": "User", "path": "/users" },
+    { "featureKey": "patients", "icon": "Users", "path": "/customers" },
+    { "featureKey": "liveOps", "icon": "Activity", "path": "/live" },
+    { "featureKey": "settings", "icon": "Settings", "path": "/settings" }
+  ]
+}

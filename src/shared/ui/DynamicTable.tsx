@@ -60,7 +60,7 @@ export const DynamicTable = ({
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="bg-gray-50 dark:bg-neutral-750 border-b border-gray-100 dark:border-neutral-700">
+            <tr className="bg-gray-50 dark:bg-neutral-700/50 border-b border-gray-100 dark:border-neutral-700">
               {columns.map((col) => (
                 <th
                   key={col.key}
@@ -86,7 +86,7 @@ export const DynamicTable = ({
                 <tr
                   key={i}
                   onClick={() => onRowClick?.(row, i)}
-                  className={`hover:bg-gray-50 dark:hover:bg-neutral-750 transition-colors ${onRowClick ? "cursor-pointer" : ""}`}
+                  className={`hover:bg-gray-50 dark:hover:bg-neutral-700/50 transition-colors ${onRowClick ? "cursor-pointer" : ""}`}
                 >
                   {columns.map((col) => (
                     <td

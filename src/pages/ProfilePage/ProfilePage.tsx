@@ -1,7 +1,7 @@
 import { useTenant } from "@/entities/tenant/TenantContext";
 import { useAuth } from "@/entities/auth/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Camera, Mail, Phone, Shield, Key, LogOut } from "lucide-react";
+import { Camera, Mail, Phone, Shield, Key, LogOut, User } from "lucide-react";
 
 const ProfilePage = () => {
   const tenant = useTenant();
@@ -29,11 +29,12 @@ const ProfilePage = () => {
         >
           <div className="absolute -bottom-10 left-6">
             <div className="relative group">
-              <img
-                src="https://fydn.imgix.net/m%2Fgen%2Fart-print-square-p1%2Fd338a134-22d3-47a5-a120-c0c6858d4ee6.jpg?auto=format%2Ccompress&q=75"
-                alt="Avatar"
-                className="w-20 h-20 rounded-2xl object-cover border-4 border-white dark:border-neutral-800 shadow-md"
-              />
+              <div
+                className="w-20 h-20 rounded-2xl flex items-center justify-center text-white border-4 border-white dark:border-neutral-800 shadow-md"
+                style={{ backgroundColor: primaryColor }}
+              >
+                <User size={32} />
+              </div>
               <button className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                 <Camera size={18} className="text-white" />
               </button>
@@ -83,7 +84,7 @@ const ProfilePage = () => {
               />
               <input
                 type="email"
-                defaultValue="edwin@detdevs.com"
+                defaultValue="contacto@detdevs.com"
                 className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 dark:border-neutral-600 bg-gray-50/50 dark:bg-neutral-700 text-sm text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:bg-white dark:focus:bg-neutral-600 transition-all"
                 style={
                   { "--tw-ring-color": primaryColor } as React.CSSProperties

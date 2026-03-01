@@ -180,6 +180,140 @@ const MOCK_CLIENTS: Record<
       ],
     },
   },
+  grooming: {
+    "1": {
+      name: "Sarah Thompson",
+      phone: "(305) 555-0142",
+      email: "sarah@email.com",
+      notes:
+        "Mascota: Buddy (Golden Retriever, Medium). Usar shampoo hipoalergénico. Buddy se pone nervioso con el secador.",
+      since: "2025-06-15",
+      history: [
+        {
+          date: "2026-02-25",
+          service: "Dog Full Grooming",
+          staff: "Marco Rivera",
+          status: "Confirmed",
+        },
+        {
+          date: "2026-01-18",
+          service: "Dog Bath Services",
+          staff: "Laura Méndez",
+          status: "Confirmed",
+        },
+        {
+          date: "2025-12-10",
+          service: "Dog Full Grooming",
+          staff: "Marco Rivera",
+          status: "Confirmed",
+        },
+      ],
+    },
+    "2": {
+      name: "Juan Pérez",
+      phone: "(786) 555-0198",
+      email: "juan@email.com",
+      notes:
+        "Mascota: Kralos (Chihuahua, Extra Small). Cliente frecuente. Kralos necesita corte de uñas cada visita.",
+      since: "2025-03-20",
+      history: [
+        {
+          date: "2026-02-20",
+          service: "Dog Bath Services",
+          staff: "Laura Méndez",
+          status: "Confirmed",
+        },
+        {
+          date: "2026-01-15",
+          service: "Treatments",
+          staff: "Marco Rivera",
+          status: "Confirmed",
+        },
+        {
+          date: "2025-12-01",
+          service: "Dog Bath Services",
+          staff: "Laura Méndez",
+          status: "Cancelled",
+        },
+      ],
+    },
+    "3": {
+      name: "Emily García",
+      phone: "(954) 555-0237",
+      email: "emily@email.com",
+      notes:
+        "Mascota: Mishi (Persa, Small). Gato muy tranquilo. Prefiere citas en la tarde.",
+      since: "2025-09-01",
+      history: [
+        {
+          date: "2026-02-18",
+          service: "Cat Grooming",
+          staff: "Sofía Castillo",
+          status: "Confirmed",
+        },
+        {
+          date: "2025-12-20",
+          service: "Cat Grooming",
+          staff: "Sofía Castillo",
+          status: "Confirmed",
+        },
+      ],
+    },
+    "4": {
+      name: "Carlos Rodríguez",
+      phone: "(305) 555-0311",
+      email: "carlos@email.com",
+      notes:
+        "Mascota: Max (Labrador, Large). Tratamiento para alergias en la piel. Requiere shampoo medicado.",
+      since: "2025-07-10",
+      history: [
+        {
+          date: "2026-02-15",
+          service: "Treatments",
+          staff: "Marco Rivera",
+          status: "Confirmed",
+        },
+        {
+          date: "2026-01-08",
+          service: "Dog Full Grooming",
+          staff: "Laura Méndez",
+          status: "Confirmed",
+        },
+      ],
+    },
+    "5": {
+      name: "María Fernández",
+      phone: "(786) 555-0455",
+      email: "maria@email.com",
+      notes:
+        "Mascota: Luna (Husky, XLarge). Luna tiene mucho pelaje, necesita cepillado extra.",
+      since: "2025-11-01",
+      history: [
+        {
+          date: "2026-02-10",
+          service: "Dog Full Grooming",
+          staff: "Marco Rivera",
+          status: "Confirmed",
+        },
+      ],
+    },
+    "6": {
+      name: "David Chen",
+      phone: "(954) 555-0522",
+      email: "david@email.com",
+      notes:
+        "Mascota: Whiskers (Maine Coon, Small). Cliente nuevo. Whiskers necesita deslanado.",
+      since: "2026-01-28",
+      history: [
+        {
+          date: "2026-01-28",
+          service: "Cat Grooming",
+          staff: "Sofía Castillo",
+          status: "Confirmed",
+        },
+      ],
+    },
+  },
 };
 
 const statusBadge: Record<string, string> = {

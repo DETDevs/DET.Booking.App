@@ -219,6 +219,92 @@ const STAFF_LANES: Record<string, StaffLane[]> = {
       ],
     },
   ],
+  grooming: [
+    {
+      staffId: "g1",
+      staffName: "Marco Rivera",
+      avatar: "MR",
+      bookings: [
+        {
+          id: "g1a",
+          time: "08:30",
+          client: "Sarah Thompson (Buddy)",
+          service: "Dog Full Grooming",
+          status: "Completada",
+        },
+        {
+          id: "g1b",
+          time: "10:00",
+          client: "Carlos Rodríguez (Max)",
+          service: "Treatments",
+          status: "EnAtencion",
+        },
+        {
+          id: "g1c",
+          time: "12:00",
+          client: "Ana López (Rocky)",
+          service: "Dog Bath Services",
+          status: "Confirmada",
+        },
+        {
+          id: "g1d",
+          time: "14:00",
+          client: "Pedro Sánchez (Thor)",
+          service: "Dog Full Grooming",
+          status: "Pendiente",
+        },
+      ],
+    },
+    {
+      staffId: "g2",
+      staffName: "Laura Méndez",
+      avatar: "LM",
+      bookings: [
+        {
+          id: "g2a",
+          time: "09:00",
+          client: "Juan Pérez (Kralos)",
+          service: "Dog Bath Services",
+          status: "Completada",
+        },
+        {
+          id: "g2b",
+          time: "10:30",
+          client: "María Fernández (Luna)",
+          service: "Dog Full Grooming",
+          status: "EnAtencion",
+        },
+        {
+          id: "g2c",
+          time: "13:00",
+          client: "Roberto Díaz (Canela)",
+          service: "Dog Bath Services",
+          status: "Confirmada",
+        },
+      ],
+    },
+    {
+      staffId: "g3",
+      staffName: "Sofía Castillo",
+      avatar: "SC",
+      bookings: [
+        {
+          id: "g3a",
+          time: "09:30",
+          client: "Emily García (Mishi)",
+          service: "Cat Grooming",
+          status: "EnAtencion",
+        },
+        {
+          id: "g3b",
+          time: "11:00",
+          client: "David Chen (Whiskers)",
+          service: "Cat Grooming",
+          status: "Pendiente",
+        },
+      ],
+    },
+  ],
 };
 
 const TABLE_LANES: TableLane[] = [
@@ -688,7 +774,12 @@ export const TodaySection = () => {
   }
 
   const lanes = STAFF_LANES[tenant.type] ?? STAFF_LANES.clinic;
-  const staffLabel = tenant.type === "clinic" ? "Especialista" : "Barbero";
+  const staffLabel =
+    tenant.type === "clinic"
+      ? "Especialista"
+      : tenant.type === "grooming"
+        ? "Groomer"
+        : "Barbero";
 
   return (
     <StaffLaneView

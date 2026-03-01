@@ -79,6 +79,56 @@ const MOCK_DATA: Record<string, Record<string, unknown>[]> = {
       lastVisit: "2026-02-08",
     },
   ],
+  grooming: [
+    {
+      name: "Sarah Thompson",
+      phone: "(305) 555-0142",
+      petName: "Buddy",
+      petType: "Perro",
+      petSize: "Medium",
+      lastVisit: "2026-02-25",
+    },
+    {
+      name: "Juan Pérez",
+      phone: "(786) 555-0198",
+      petName: "Kralos",
+      petType: "Perro",
+      petSize: "Extra Small",
+      lastVisit: "2026-02-20",
+    },
+    {
+      name: "Emily García",
+      phone: "(954) 555-0237",
+      petName: "Mishi",
+      petType: "Gato",
+      petSize: "Small",
+      lastVisit: "2026-02-18",
+    },
+    {
+      name: "Carlos Rodríguez",
+      phone: "(305) 555-0311",
+      petName: "Max",
+      petType: "Perro",
+      petSize: "Large",
+      lastVisit: "2026-02-15",
+    },
+    {
+      name: "María Fernández",
+      phone: "(786) 555-0455",
+      petName: "Luna",
+      petType: "Perro",
+      petSize: "XLarge",
+      lastVisit: "2026-02-10",
+    },
+    {
+      name: "David Chen",
+      phone: "(954) 555-0522",
+      petName: "Whiskers",
+      petType: "Gato",
+      petSize: "Small",
+      lastVisit: "2026-01-28",
+    },
+  ],
 };
 
 const CustomerPage = () => {
@@ -88,7 +138,9 @@ const CustomerPage = () => {
       ? "clients"
       : tenant.type === "restaurant"
         ? "clients"
-        : "patients";
+        : tenant.type === "grooming"
+          ? "clients"
+          : "patients";
   const schema = useSchema(entityName);
   const [showForm, setShowForm] = useState(false);
   const primaryColor = tenant.branding?.primaryColor ?? "#6366f1";

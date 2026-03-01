@@ -18,7 +18,7 @@ interface Props {
 
 const darkSx = {
   "& .MuiOutlinedInput-root": {
-    color: "inherit",
+    color: "#e5e5e5",
     "& fieldset": { borderColor: "#525252" },
     "&:hover fieldset": { borderColor: "#737373" },
     "&.Mui-focused fieldset": { borderColor: "#d97706" },
@@ -26,6 +26,7 @@ const darkSx = {
   "& .MuiInputLabel-root": { color: "#a3a3a3" },
   "& .MuiInputLabel-root.Mui-focused": { color: "#d97706" },
   "& .MuiSelect-icon": { color: "#a3a3a3" },
+  "& .MuiInputBase-input::placeholder": { color: "#737373", opacity: 1 },
 };
 
 export default function FilterBooking({ onFilterChange }: Props) {

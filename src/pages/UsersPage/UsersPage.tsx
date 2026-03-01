@@ -82,6 +82,36 @@ const MOCK_DATA: Record<string, Record<string, unknown>[]> = {
       available: false,
     },
   ],
+  grooming: [
+    {
+      name: "Marco Rivera",
+      phone: "8811-5566",
+      specialty: "Ambos",
+      shift: "Completo",
+      available: true,
+    },
+    {
+      name: "Laura Méndez",
+      phone: "8822-6677",
+      specialty: "Perros",
+      shift: "Mañana",
+      available: true,
+    },
+    {
+      name: "Sofía Castillo",
+      phone: "8833-7788",
+      specialty: "Gatos",
+      shift: "Tarde",
+      available: true,
+    },
+    {
+      name: "Daniel Vargas",
+      phone: "8844-8899",
+      specialty: "Perros",
+      shift: "Completo",
+      available: false,
+    },
+  ],
 };
 
 const UsersPage = () => {

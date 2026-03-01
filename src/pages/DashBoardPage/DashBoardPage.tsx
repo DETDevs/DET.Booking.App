@@ -123,6 +123,44 @@ const MOCK_PREVIEWS: Record<
       time: "20:00 - 21:30",
     },
   ],
+  grooming: [
+    {
+      name: "Sarah Thompson (Buddy)",
+      service: "Dog Full Grooming",
+      date: "28 Feb 2026",
+      time: "09:00 - 10:30",
+    },
+    {
+      name: "Juan Pérez (Kralos)",
+      service: "Dog Bath Services",
+      date: "28 Feb 2026",
+      time: "10:00 - 11:00",
+    },
+    {
+      name: "Emily García (Mishi)",
+      service: "Cat Grooming",
+      date: "28 Feb 2026",
+      time: "11:00 - 12:00",
+    },
+    {
+      name: "Carlos Rodríguez (Max)",
+      service: "Treatments",
+      date: "01 Mar 2026",
+      time: "09:00 - 10:00",
+    },
+    {
+      name: "María Fernández (Luna)",
+      service: "Dog Full Grooming",
+      date: "01 Mar 2026",
+      time: "10:30 - 12:00",
+    },
+    {
+      name: "David Chen (Whiskers)",
+      service: "Cat Grooming",
+      date: "01 Mar 2026",
+      time: "14:00 - 15:00",
+    },
+  ],
 };
 
 const MOCK_KPIS: Record<string, { value: number; delta: number }[]> = {
@@ -143,6 +181,12 @@ const MOCK_KPIS: Record<string, { value: number; delta: number }[]> = {
     { value: 15, delta: -3.1 },
     { value: 22, delta: 8.7 },
     { value: 1340, delta: 4.5 },
+  ],
+  grooming: [
+    { value: 438, delta: 9.4 },
+    { value: 11, delta: 2.8 },
+    { value: 8, delta: 5.1 },
+    { value: 312, delta: 6.3 },
   ],
 };
 

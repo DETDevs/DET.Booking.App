@@ -1,7 +1,7 @@
 export interface TenantConfig {
     id: string;
     name: string;
-    type: "clinic" | "restaurant" | "hotel" | "barbershop" | "generic";
+    type: "clinic" | "restaurant" | "hotel" | "barbershop" | "grooming" | "generic";
     schemaDir: string;
     branding?: TenantBranding;
     features: Record<string, FeatureConfig>;

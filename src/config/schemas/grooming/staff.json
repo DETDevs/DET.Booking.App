@@ -1,0 +1,36 @@
+{
+  "entity": "staff",
+  "title": "Groomers",
+  "columns": [
+    { "key": "name", "label": "Nombre", "type": "text" },
+    { "key": "phone", "label": "Teléfono", "type": "text" },
+    { "key": "specialty", "label": "Especialidad", "type": "badge" },
+    { "key": "shift", "label": "Turno", "type": "badge" },
+    { "key": "available", "label": "Disponible", "type": "boolean" }
+  ],
+  "fields": [
+    {
+      "key": "name",
+      "label": "Nombre completo",
+      "type": "text",
+      "required": true
+    },
+    { "key": "phone", "label": "Teléfono", "type": "tel", "required": true },
+    { "key": "email", "label": "Correo", "type": "email" },
+    {
+      "key": "specialty",
+      "label": "Especialidad",
+      "type": "select",
+      "required": true,
+      "options": ["Perros", "Gatos", "Ambos"]
+    },
+    {
+      "key": "shift",
+      "label": "Turno",
+      "type": "select",
+      "required": true,
+      "options": ["Mañana", "Tarde", "Completo"]
+    },
+    { "key": "available", "label": "Disponible", "type": "checkbox" }
+  ]
+}

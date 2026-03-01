@@ -210,6 +210,78 @@ const MOCK_BOOKINGS: Record<string, Booking[]> = {
       status: "Pending",
     },
   ],
+  grooming: [
+    {
+      id: "g1",
+      client: "Sarah Thompson (Buddy)",
+      service: "Dog Full Grooming",
+      staff: "Marco Rivera",
+      date: "2026-02-16",
+      startHour: 9,
+      endHour: 11,
+      status: "Confirmed",
+    },
+    {
+      id: "g2",
+      client: "Juan Pérez (Kralos)",
+      service: "Dog Bath Services",
+      staff: "Laura Méndez",
+      date: "2026-02-16",
+      startHour: 10,
+      endHour: 11,
+      status: "Pending",
+    },
+    {
+      id: "g3",
+      client: "Emily García (Mishi)",
+      service: "Cat Grooming",
+      staff: "Sofía Castillo",
+      date: "2026-02-17",
+      startHour: 9,
+      endHour: 10,
+      status: "Confirmed",
+    },
+    {
+      id: "g4",
+      client: "Carlos Rodríguez (Max)",
+      service: "Treatments",
+      staff: "Marco Rivera",
+      date: "2026-02-17",
+      startHour: 11,
+      endHour: 12,
+      status: "Confirmed",
+    },
+    {
+      id: "g5",
+      client: "María Fernández (Luna)",
+      service: "Dog Full Grooming",
+      staff: "Laura Méndez",
+      date: "2026-02-18",
+      startHour: 9,
+      endHour: 11,
+      status: "Pending",
+    },
+    {
+      id: "g6",
+      client: "David Chen (Whiskers)",
+      service: "Cat Grooming",
+      staff: "Sofía Castillo",
+      date: "2026-02-19",
+      startHour: 14,
+      endHour: 15,
+      status: "Cancelled",
+    },
+    {
+      id: "g7",
+      client: "Ana López (Rocky)",
+      service: "Dog Bath Services",
+      staff: "Marco Rivera",
+      date: "2026-02-20",
+      startHour: 10,
+      endHour: 11,
+      status: "Confirmed",
+    },
+  ],
 };
 
 const HOURS = Array.from({ length: 14 }, (_, i) => i + 7);
@@ -456,8 +528,15 @@ const BookingDetailModal = ({
       ? "Doctor"
       : tenant.type === "barbershop"
         ? "Barbero"
-        : "Encargado";
-  const clientLabel = tenant.type === "clinic" ? "Paciente" : "Cliente";
+        : tenant.type === "grooming"
+          ? "Groomer"
+          : "Encargado";
+  const clientLabel =
+    tenant.type === "clinic"
+      ? "Paciente"
+      : tenant.type === "grooming"
+        ? "Dueño"
+        : "Cliente";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

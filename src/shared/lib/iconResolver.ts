@@ -16,6 +16,7 @@ import {
     Scissors,
     LayoutGrid,
     UtensilsCrossed,
+    Activity,
     type LucideIcon,
 } from "lucide-react";
 
@@ -37,6 +38,7 @@ const iconMap: Record<string, LucideIcon> = {
     Scissors,
     LayoutGrid,
     UtensilsCrossed,
+    Activity,
 };
 
 export function resolveIcon(name: string): LucideIcon {

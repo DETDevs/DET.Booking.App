@@ -1,0 +1,94 @@
+{
+  "entity": "settings",
+  "title": "Ajustes",
+  "sections": [
+    {
+      "title": "Horario de Trabajo",
+      "icon": "Clock",
+      "fields": [
+        {
+          "key": "openTime",
+          "label": "Hora de apertura",
+          "type": "time",
+          "required": true
+        },
+        {
+          "key": "closeTime",
+          "label": "Hora de cierre",
+          "type": "time",
+          "required": true
+        },
+        {
+          "key": "workDays",
+          "label": "Días laborales",
+          "type": "text",
+          "required": true,
+          "placeholder": "Lun-Sáb"
+        }
+      ]
+    },
+    {
+      "title": "Servicios y Precios",
+      "icon": "Scissors",
+      "fields": [
+        {
+          "key": "services",
+          "label": "Servicios ofrecidos",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "Dog Bath, Dog Full Grooming, Cat Grooming, Treatments..."
+        },
+        {
+          "key": "avgDuration",
+          "label": "Duración promedio (min)",
+          "type": "number",
+          "required": true
+        },
+        {
+          "key": "sizePricing",
+          "label": "Precios por tamaño",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "Extra Small: $50, Small: $55, Medium: $65..."
+        },
+        {
+          "key": "allowWalkIn",
+          "label": "Permitir sin cita previa",
+          "type": "checkbox",
+          "required": false
+        }
+      ]
+    },
+    {
+      "title": "Datos del Negocio",
+      "icon": "Building",
+      "fields": [
+        {
+          "key": "businessName",
+          "label": "Nombre del negocio",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "address",
+          "label": "Dirección",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "label": "Teléfono principal",
+          "type": "tel",
+          "required": true
+        },
+        {
+          "key": "socialMedia",
+          "label": "Instagram / Facebook",
+          "type": "text",
+          "required": false,
+          "placeholder": "@mopetco"
+        }
+      ]
+    }
+  ]
+}

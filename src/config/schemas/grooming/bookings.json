@@ -1,0 +1,66 @@
+{
+  "entity": "bookings",
+  "title": "Reservas",
+  "columns": [
+    { "key": "client", "label": "Dueño", "type": "text" },
+    { "key": "pet", "label": "Mascota", "type": "text" },
+    { "key": "groomer", "label": "Groomer", "type": "text" },
+    { "key": "service", "label": "Servicio", "type": "badge" },
+    { "key": "size", "label": "Tamaño", "type": "badge" },
+    { "key": "date", "label": "Fecha", "type": "date" },
+    { "key": "time", "label": "Hora", "type": "text" },
+    { "key": "status", "label": "Estado", "type": "badge" }
+  ],
+  "fields": [
+    { "key": "client", "label": "Dueño", "type": "text", "required": true },
+    {
+      "key": "pet",
+      "label": "Mascota",
+      "type": "text",
+      "required": true,
+      "placeholder": "Nombre de la mascota"
+    },
+    {
+      "key": "groomer",
+      "label": "Groomer",
+      "type": "select",
+      "required": true,
+      "options": []
+    },
+    {
+      "key": "service",
+      "label": "Servicio",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Dog Bath Services",
+        "Dog Full Grooming Services",
+        "Cat Grooming",
+        "Treatments"
+      ]
+    },
+    {
+      "key": "size",
+      "label": "Tamaño",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Extra Small",
+        "Small",
+        "Medium",
+        "Large",
+        "XLarge",
+        "XX Large"
+      ]
+    },
+    { "key": "date", "label": "Fecha", "type": "date", "required": true },
+    {
+      "key": "time",
+      "label": "Hora",
+      "type": "text",
+      "required": true,
+      "placeholder": "10:00"
+    },
+    { "key": "notes", "label": "Notas", "type": "textarea" }
+  ]
+}
