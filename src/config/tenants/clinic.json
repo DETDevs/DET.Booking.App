@@ -17,23 +17,27 @@
     "staff": { "enabled": true, "label": "Doctores" },
     "patients": { "enabled": true, "label": "Pacientes" },
     "liveOps": { "enabled": true, "label": "Consultas" },
+    "services": { "enabled": true, "label": "Servicios" },
+    "reports": { "enabled": true, "label": "Reportes" },
+    "notifications": { "enabled": true, "label": "Notificaciones" },
+    "auditLog": { "enabled": true, "label": "Historial" },
     "settings": { "enabled": true, "label": "Configuración" },
     "profile": { "enabled": true, "label": "Perfil" },
     "inventory": { "enabled": false },
     "billing": { "enabled": false }
   },
   "navigation": [
-    { "featureKey": "dashboard", "icon": "Home", "path": "/" },
-    { "featureKey": "bookings", "icon": "Calendar", "path": "/bookings" },
-    { "featureKey": "calendar", "icon": "CalendarCheck", "path": "/calendar" },
-    {
-      "featureKey": "newBooking",
-      "icon": "CalendarPlus",
-      "path": "/new-booking"
-    },
-    { "featureKey": "staff", "icon": "User", "path": "/users" },
-    { "featureKey": "patients", "icon": "UsersRound", "path": "/customers" },
-    { "featureKey": "liveOps", "icon": "Activity", "path": "/live" },
-    { "featureKey": "settings", "icon": "Settings", "path": "/settings" }
+    { "featureKey": "dashboard", "icon": "Home", "path": "/", "group": "Operaciones" },
+    { "featureKey": "liveOps", "icon": "Activity", "path": "/live", "group": "Operaciones" },
+    { "featureKey": "calendar", "icon": "CalendarCheck", "path": "/calendar", "group": "Operaciones" },
+    { "featureKey": "bookings", "icon": "Calendar", "path": "/bookings", "group": "Gestión" },
+    { "featureKey": "newBooking", "icon": "CalendarPlus", "path": "/new-booking", "group": "Gestión" },
+    { "featureKey": "auditLog", "icon": "History", "path": "/audit-log", "group": "Gestión" },
+    { "featureKey": "staff", "icon": "User", "path": "/users", "group": "Directorio" },
+    { "featureKey": "patients", "icon": "UsersRound", "path": "/customers", "group": "Directorio" },
+    { "featureKey": "notifications", "icon": "Bell", "path": "/notifications", "group": "Directorio" },
+    { "featureKey": "services", "icon": "Tag", "path": "/services", "group": "Configuración" },
+    { "featureKey": "reports", "icon": "PieChart", "path": "/reports", "group": "Configuración" },
+    { "featureKey": "settings", "icon": "Settings", "path": "/settings", "group": "Configuración" }
   ]
 }

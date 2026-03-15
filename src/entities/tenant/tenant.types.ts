@@ -25,4 +25,5 @@ export interface NavigationItem {
     featureKey: string;
     icon: string;
     path: string;
+    group?: string;
 }

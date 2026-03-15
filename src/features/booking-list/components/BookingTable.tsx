@@ -5,143 +5,30 @@ import FilterBooking from "./FilterBooking";
 import type { Filters } from "./FilterBooking";
 import { useSchema } from "@/entities/schema/useSchema";
 import { useTenant } from "@/entities/tenant/TenantContext";
+import { EmptyState } from "@/shared/ui/EmptyState";
+import { PageHeader } from "@/shared/ui/PageHeader";
+import { Calendar, Clock, User } from "lucide-react";
+import { useBookingStore, formatHour } from "@/entities/booking/useBookingStore";
+import { useStaffStore } from "@/entities/staff/useStaffStore";
+import { useSettingsStore } from "@/entities/settings/useSettingsStore";
 
-const MOCK_DATA: Record<string, Record<string, string>[]> = {
-  clinic: [
-    {
-      patient: "Amanda Chavez",
-      doctor: "Dr. Emily Johnson",
-      service: "Fisioterapia",
-      date: "2025-05-13",
-      time: "11:00 - 12:00",
-      status: "Pending",
-    },
-    {
-      patient: "Jasmine Palmer",
-      doctor: "Dr. Carlos Martínez",
-      service: "Terapia Ocupacional",
-      date: "2025-05-14",
-      time: "09:00 - 10:00",
-      status: "Confirmed",
-    },
-    {
-      patient: "Randy Elliot",
-      doctor: "Dra. Ana Pérez",
-      service: "Psicología",
-      date: "2025-05-14",
-      time: "10:30 - 11:30",
-      status: "Cancelled",
-    },
-  ],
-  barbershop: [
-    {
-      client: "Carlos Rivera",
-      barber: "Marco Jiménez",
-      service: "Fade",
-      date: "2025-05-13",
-      time: "10:00 - 10:30",
-      status: "Confirmed",
-    },
-    {
-      client: "Andrés Mora",
-      barber: "David Solano",
-      service: "Corte + Barba",
-      date: "2025-05-14",
-      time: "11:00 - 11:45",
-      status: "Pending",
-    },
-    {
-      client: "Kevin Soto",
-      barber: "José Ureña",
-      service: "Tinte",
-      date: "2025-05-14",
-      time: "14:00 - 15:00",
-      status: "Cancelled",
-    },
-  ],
-  restaurant: [
-    {
-      client: "Isabel Quesada",
-      table: "Mesa 3",
-      guests: "4",
-      date: "2025-05-13",
-      time: "19:00 - 21:00",
-      status: "Confirmed",
-    },
-    {
-      client: "Roberto Arias",
-      table: "VIP",
-      guests: "8",
-      date: "2025-05-14",
-      time: "20:00 - 22:00",
-      status: "Pending",
-    },
-    {
-      client: "María José Soto",
-      table: "Terraza A",
-      guests: "2",
-      date: "2025-05-14",
-      time: "13:00 - 14:30",
-      status: "Confirmed",
-    },
-  ],
-  grooming: [
-    {
-      client: "Sarah Thompson",
-      pet: "Buddy",
-      groomer: "Marco",
-      service: "Dog Full Grooming Services",
-      size: "Medium",
-      date: "2026-02-28",
-      time: "09:00 - 10:30",
-      status: "Confirmed",
-    },
-    {
-      client: "Juan Pérez",
-      pet: "Kralos",
-      groomer: "Laura",
-      service: "Dog Bath Services",
-      size: "Extra Small",
-      date: "2026-02-28",
-      time: "10:00 - 11:00",
-      status: "Pending",
-    },
-    {
-      client: "Emily García",
-      pet: "Mishi",
-      groomer: "Marco",
-      service: "Cat Grooming",
-      size: "Small",
-      date: "2026-02-28",
-      time: "11:00 - 12:00",
-      status: "Confirmed",
-    },
-    {
-      client: "Carlos Rodríguez",
-      pet: "Max",
-      groomer: "Laura",
-      service: "Treatments",
-      size: "Large",
-      date: "2026-03-01",
-      time: "09:00 - 10:00",
-      status: "Pending",
-    },
-    {
-      client: "María Fernández",
-      pet: "Luna",
-      groomer: "Marco",
-      service: "Dog Full Grooming Services",
-      size: "XLarge",
-      date: "2026-03-01",
-      time: "10:30 - 12:00",
-      status: "Cancelled",
-    },
-  ],
+const STATUS_LABELS: Record<string, string> = {
+  Pending: "Pendiente",
+  Confirmed: "Confirmada",
+  InProgress: "En atención",
+  Completed: "Completada",
+  Cancelled: "Cancelada",
 };
 
 export default function BookingTable() {
   const schema = useSchema("bookings");
   const tenant = useTenant();
+  const primaryColor = tenant.branding?.primaryColor ?? "#6366f1";
+  const openNewBooking = useBookingStore((s) => s.openNewBooking);
+
+  const reservations = useBookingStore((s) => s.reservations);
+  const allStaff = useStaffStore((s) => s.staff);
+  const allServices = useSettingsStore((s) => s.services);
 
   const [filters, setFilters] = useState<Filters>({
     startDate: undefined,
@@ -150,7 +37,21 @@ export default function BookingTable() {
     search: "",
   });
 
-  const mockData = MOCK_DATA[tenant.type] ?? MOCK_DATA.clinic;
+  // Filter by tenant + enrich with display names
+  const storeRows = useMemo(() => {
+    return reservations
+      .filter((r) => r.tenant === tenant.type)
+      .map((r) => {
+        const staff = allStaff.find((s) => s.id === r.staffId);
+        const service = allServices.find((s) => s.id === r.serviceId);
+        return {
+          ...r,
+          staffName: staff?.name ?? "—",
+          serviceName: service?.name ?? "—",
+          timeRange: `${formatHour(r.startHour)} - ${formatHour(r.endHour)}`,
+        };
+      });
+  }, [reservations, allStaff, allServices, tenant.type]);
 
   const schemaColumns: Column[] = schema
     ? schema.columns.map((col) => ({
@@ -160,29 +61,38 @@ export default function BookingTable() {
       }))
     : [];
 
-  const rows: Data[] = useMemo(() => {
-    return mockData
-      .filter((b) => {
-        const d = new Date(b.date);
-        if (filters.startDate && d < filters.startDate) return false;
-        if (filters.endDate && d > filters.endDate) return false;
-        if (filters.status && b.status !== filters.status) return false;
+  // Apply filters
+  const filteredData = useMemo(() => {
+    return storeRows.filter((b) => {
+      const d = new Date(b.date);
+      if (filters.startDate && d < filters.startDate) return false;
+      if (filters.endDate && d > filters.endDate) return false;
+      if (filters.status && b.status !== filters.status) return false;
+      const q = filters.search.toLowerCase();
+      if (q) {
+        const searchable = `${b.clientName} ${b.staffName} ${b.serviceName} ${b.date} ${b.timeRange}`.toLowerCase();
+        if (!searchable.includes(q)) return false;
+      }
+      return true;
+    });
+  }, [filters, storeRows]);
 
-        const q = filters.search.toLowerCase();
-        if (q) {
-          const values = Object.values(b).join(" ").toLowerCase();
-          if (!values.includes(q)) return false;
-        }
-        return true;
-      })
-      .map((b) => {
-        const row: Data = {};
-        schemaColumns.forEach((col) => {
-          row[col.id] = b[col.id] ?? "";
-        });
-        return row;
+  // Map to table rows
+  const rows: Data[] = useMemo(() => {
+    return filteredData.map((b) => {
+      const row: Data = {};
+      schemaColumns.forEach((col) => {
+        if (col.id === "status") row[col.id] = STATUS_LABELS[b.status] ?? b.status;
+        else if (col.id === "client" || col.id === "patient") row[col.id] = b.clientName;
+        else if (col.id === "barber" || col.id === "doctor" || col.id === "groomer") row[col.id] = b.staffName;
+        else if (col.id === "service") row[col.id] = b.serviceName;
+        else if (col.id === "date") row[col.id] = b.date;
+        else if (col.id === "time") row[col.id] = b.timeRange;
+        else row[col.id] = (b as unknown as Record<string, string>)[col.id] ?? "—";
       });
-  }, [filters, mockData, schemaColumns]);
+      return row;
+    });
+  }, [filteredData, schemaColumns]);
 
   if (!schema) {
     return (
@@ -194,11 +104,59 @@ export default function BookingTable() {
 
   return (
     <>
-      <h1 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
-        {schema.title}
-      </h1>
+      <PageHeader
+        icon={Calendar}
+        title={schema.title}
+        subtitle={`${storeRows.length} registros totales`}
+      />
       <FilterBooking onFilterChange={setFilters} />
-      <StickyHeadTable columns={schemaColumns} rows={rows} />
+
+      {/* Desktop table */}
+      <div className="hidden md:block">
+        {rows.length > 0 ? (
+          <StickyHeadTable columns={schemaColumns} rows={rows} />
+        ) : (
+          <EmptyState
+            title="Sin resultados"
+            description="No se encontraron reservas con los filtros aplicados."
+            primaryColor={primaryColor}
+            action={{ label: "Nueva reserva", onClick: openNewBooking }}
+          />
+        )}
+      </div>
+
+      {/* Mobile cards */}
+      <div className="md:hidden space-y-3 px-1">
+        {filteredData.length > 0 ? (
+          filteredData.map((b) => (
+            <div
+              key={b.id}
+              className="bg-white dark:bg-neutral-800 rounded-xl border border-gray-100 dark:border-neutral-700 p-4 shadow-sm space-y-2"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-sm text-gray-900 dark:text-white">{b.clientName}</span>
+                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                  b.status === "Confirmed" || b.status === "Completed"
+                    ? "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300"
+                    : b.status === "Pending"
+                      ? "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
+                      : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300"
+                }`}>
+                  {STATUS_LABELS[b.status] ?? b.status}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-neutral-400">
+                <span className="flex items-center gap-1"><User size={11} />{b.staffName}</span>
+                <span>{b.serviceName}</span>
+                <span className="flex items-center gap-1"><Clock size={11} />{b.timeRange}</span>
+                <span>{b.date}</span>
+              </div>
+            </div>
+          ))
+        ) : (
+          <EmptyState title="Sin resultados" description="No se encontraron reservas." primaryColor={primaryColor} />
+        )}
+      </div>
     </>
   );
 }

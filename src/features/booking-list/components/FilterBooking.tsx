@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { TextField, Button, MenuItem, InputAdornment } from "@mui/material";
 import { RotateCcw, Search } from "lucide-react";
 import { Calendar } from "@/shared/ui/Calendar";
 import { Popover, PopoverTrigger, PopoverContent } from "@/shared/ui/Popover";
+import { useTenant } from "@/entities/tenant/TenantContext";
 import { format } from "date-fns";
 
 export interface Filters {
@@ -16,20 +16,10 @@ interface Props {
   onFilterChange: (f: Filters) => void;
 }
 
-const darkSx = {
-  "& .MuiOutlinedInput-root": {
-    color: "#e5e5e5",
-    "& fieldset": { borderColor: "#525252" },
-    "&:hover fieldset": { borderColor: "#737373" },
-    "&.Mui-focused fieldset": { borderColor: "#d97706" },
-  },
-  "& .MuiInputLabel-root": { color: "#a3a3a3" },
-  "& .MuiInputLabel-root.Mui-focused": { color: "#d97706" },
-  "& .MuiSelect-icon": { color: "#a3a3a3" },
-  "& .MuiInputBase-input::placeholder": { color: "#737373", opacity: 1 },
-};
-
 export default function FilterBooking({ onFilterChange }: Props) {
+  const tenant = useTenant();
+  const primaryColor = tenant.branding?.primaryColor ?? "#6366f1";
+
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
   const [status, setStatus] = useState("");
@@ -37,9 +27,6 @@ export default function FilterBooking({ onFilterChange }: Props) {
 
   const [openStart, setOpenStart] = useState(false);
   const [openEnd, setOpenEnd] = useState(false);
-
-  const isDark =
-    typeof document !== "undefined" && document.querySelector(".dark") !== null;
 
   useEffect(() => {
     onFilterChange({ startDate, endDate, status, search });
@@ -52,24 +39,29 @@ export default function FilterBooking({ onFilterChange }: Props) {
     setSearch("");
   };
 
-  const fieldSx = isDark ? darkSx : {};
+  const inputBase =
+    "px-3 py-2 text-sm rounded-lg border border-gray-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 transition-all";
+  const ringStyle = { "--tw-ring-color": primaryColor } as React.CSSProperties;
 
   return (
     <div className="flex flex-wrap justify-between items-center gap-4 p-4">
       <div className="flex items-center gap-3 flex-wrap">
+        {/* Date Start */}
         <Popover open={openStart} onOpenChange={setOpenStart}>
           <PopoverTrigger asChild>
-            <TextField
-              size="small"
-              label="Date Start"
-              className="w-[7rem]"
-              value={startDate ? format(startDate, "yyyy-MM-dd") : ""}
-              InputProps={{
-                readOnly: true,
-                onClick: () => setOpenStart(true),
-              }}
-              sx={fieldSx}
-            />
+            <button
+              onClick={() => setOpenStart(true)}
+              className={`${inputBase} w-[8.5rem] text-left cursor-pointer`}
+              style={ringStyle}
+            >
+              {startDate ? (
+                <span>{format(startDate, "yyyy-MM-dd")}</span>
+              ) : (
+                <span className="text-gray-400 dark:text-neutral-500">
+                  Desde
+                </span>
+              )}
+            </button>
           </PopoverTrigger>
           <PopoverContent side="bottom" className="p-2">
             <Calendar
@@ -84,19 +76,22 @@ export default function FilterBooking({ onFilterChange }: Props) {
           </PopoverContent>
         </Popover>
 
+        {/* Date End */}
         <Popover open={openEnd} onOpenChange={setOpenEnd}>
           <PopoverTrigger asChild>
-            <TextField
-              size="small"
-              label="Date End"
-              className="w-[7rem]"
-              value={endDate ? format(endDate, "yyyy-MM-dd") : ""}
-              InputProps={{
-                readOnly: true,
-                onClick: () => setOpenEnd(true),
-              }}
-              sx={fieldSx}
-            />
+            <button
+              onClick={() => setOpenEnd(true)}
+              className={`${inputBase} w-[8.5rem] text-left cursor-pointer`}
+              style={ringStyle}
+            >
+              {endDate ? (
+                <span>{format(endDate, "yyyy-MM-dd")}</span>
+              ) : (
+                <span className="text-gray-400 dark:text-neutral-500">
+                  Hasta
+                </span>
+              )}
+            </button>
           </PopoverTrigger>
           <PopoverContent side="bottom" className="p-2">
             <Calendar
@@ -111,46 +106,43 @@ export default function FilterBooking({ onFilterChange }: Props) {
           </PopoverContent>
         </Popover>
 
-        <TextField
-          select
-          size="small"
-          label="Estado"
+        {/* Status */}
+        <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="w-[10rem]"
-          sx={fieldSx}
+          className={`${inputBase} w-[10rem] appearance-none cursor-pointer`}
+          style={ringStyle}
         >
-          <MenuItem value="">Todos</MenuItem>
-          <MenuItem value="Pending">Pendiente</MenuItem>
-          <MenuItem value="Confirmed">Confirmada</MenuItem>
-          <MenuItem value="Cancelled">Cancelada</MenuItem>
-        </TextField>
+          <option value="">Todos</option>
+          <option value="Pending">Pendiente</option>
+          <option value="Confirmed">Confirmada</option>
+          <option value="Cancelled">Cancelada</option>
+        </select>
 
-        <Button
-          startIcon={<RotateCcw />}
-          color="error"
-          variant="outlined"
+        {/* Reset */}
+        <button
           onClick={reset}
+          className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors cursor-pointer"
         >
+          <RotateCcw size={14} />
           Limpiar
-        </Button>
+        </button>
       </div>
 
-      <TextField
-        size="small"
-        placeholder="Buscar..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search size={16} className={isDark ? "text-neutral-400" : ""} />
-            </InputAdornment>
-          ),
-          style: { borderRadius: 20 },
-        }}
-        sx={fieldSx}
-      />
+      {/* Search */}
+      <div className="relative">
+        <Search
+          size={16}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-neutral-500"
+        />
+        <input
+          placeholder="Buscar..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className={`${inputBase} pl-9 pr-4 rounded-full w-52`}
+          style={ringStyle}
+        />
+      </div>
     </div>
   );
 }

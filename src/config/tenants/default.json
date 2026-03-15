@@ -1,34 +1,43 @@
 {
   "id": "default",
-  "name": "DET Booking",
+  "name": "Mi Negocio",
   "type": "generic",
-  "schemaDir": "clinic",
+  "schemaDir": "barbershop",
   "branding": {
+    "logo": "/logo-default.png",
     "primaryColor": "#6366f1",
     "accentColor": "#818cf8",
     "theme": "light"
   },
   "features": {
-    "dashboard": { "enabled": true },
-    "bookings": { "enabled": true },
-    "newBooking": { "enabled": true },
-    "staff": { "enabled": true },
-    "patients": { "enabled": true },
-    "settings": { "enabled": true },
-    "profile": { "enabled": true },
-    "inventory": { "enabled": true },
-    "billing": { "enabled": true }
+    "dashboard": { "enabled": true, "label": "Inicio" },
+    "bookings": { "enabled": true, "label": "Reservas" },
+    "newBooking": { "enabled": true, "label": "Nueva Reserva" },
+    "calendar": { "enabled": true, "label": "Calendario" },
+    "staff": { "enabled": true, "label": "Equipo" },
+    "patients": { "enabled": true, "label": "Clientes" },
+    "liveOps": { "enabled": true, "label": "Operaciones" },
+    "services": { "enabled": true, "label": "Servicios" },
+    "reports": { "enabled": true, "label": "Reportes" },
+    "notifications": { "enabled": true, "label": "Notificaciones" },
+    "auditLog": { "enabled": true, "label": "Historial" },
+    "settings": { "enabled": true, "label": "Configuración" },
+    "profile": { "enabled": true, "label": "Perfil" },
+    "inventory": { "enabled": false },
+    "billing": { "enabled": false }
   },
   "navigation": [
-    { "featureKey": "dashboard", "icon": "Home", "path": "/" },
-    { "featureKey": "bookings", "icon": "Calendar", "path": "/bookings" },
-    {
-      "featureKey": "newBooking",
-      "icon": "CalendarPlus",
-      "path": "/new-booking"
-    },
-    { "featureKey": "staff", "icon": "User", "path": "/users" },
-    { "featureKey": "patients", "icon": "UsersRound", "path": "/customers" },
-    { "featureKey": "settings", "icon": "Settings", "path": "/settings" }
+    { "featureKey": "dashboard", "icon": "Home", "path": "/", "group": "Operaciones" },
+    { "featureKey": "liveOps", "icon": "Activity", "path": "/live", "group": "Operaciones" },
+    { "featureKey": "calendar", "icon": "CalendarCheck", "path": "/calendar", "group": "Operaciones" },
+    { "featureKey": "bookings", "icon": "Calendar", "path": "/bookings", "group": "Gestión" },
+    { "featureKey": "newBooking", "icon": "CalendarPlus", "path": "/new-booking", "group": "Gestión" },
+    { "featureKey": "auditLog", "icon": "History", "path": "/audit-log", "group": "Gestión" },
+    { "featureKey": "staff", "icon": "User", "path": "/users", "group": "Directorio" },
+    { "featureKey": "patients", "icon": "Users", "path": "/customers", "group": "Directorio" },
+    { "featureKey": "notifications", "icon": "Bell", "path": "/notifications", "group": "Directorio" },
+    { "featureKey": "services", "icon": "Tag", "path": "/services", "group": "Configuración" },
+    { "featureKey": "reports", "icon": "PieChart", "path": "/reports", "group": "Configuración" },
+    { "featureKey": "settings", "icon": "Settings", "path": "/settings", "group": "Configuración" }
   ]
 }

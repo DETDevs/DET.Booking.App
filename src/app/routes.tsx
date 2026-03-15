@@ -19,6 +19,10 @@ import {
   CalendarPage,
   ClientDetailPage,
   LiveOpsPage,
+  ReportsPage,
+  NotificationsPage,
+  ServicesPage,
+  AuditLogPage,
 } from "./lazyPages";
 
 const featureRouteMap: Record<
@@ -34,6 +38,10 @@ const featureRouteMap: Record<
   profile: { path: "profile", element: <ProfilePage /> },
   calendar: { path: "calendar", element: <CalendarPage /> },
   liveOps: { path: "live", element: <LiveOpsPage /> },
+  reports: { path: "reports", element: <ReportsPage /> },
+  notifications: { path: "notifications", element: <NotificationsPage /> },
+  services: { path: "services", element: <ServicesPage /> },
+  auditLog: { path: "audit-log", element: <AuditLogPage /> },
 };
 
 export const AppRoutes = () => {

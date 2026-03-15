@@ -37,7 +37,7 @@
     {
       "key": "time",
       "label": "Hora",
-      "type": "text",
+      "type": "time",
       "required": true,
       "placeholder": "10:00"
     },

@@ -14,7 +14,7 @@ export interface ColumnDef {
 export interface FieldDef {
     key: string;
     label: string;
-    type: "text" | "email" | "tel" | "number" | "date" | "select" | "textarea" | "checkbox";
+    type: "text" | "email" | "tel" | "number" | "date" | "time" | "select" | "textarea" | "checkbox";
     required?: boolean;
     placeholder?: string;
     options?: string[];

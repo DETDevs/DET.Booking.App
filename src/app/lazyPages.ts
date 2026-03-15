@@ -55,3 +55,19 @@ export const ClientDetailPage = lazy(
 export const LiveOpsPage = lazy(
     () => import("@/pages/LiveOpsPage/LiveOpsPage")
 );
+
+export const ReportsPage = lazy(
+    () => import("@/pages/ReportsPage/ReportsPage")
+);
+
+export const NotificationsPage = lazy(
+    () => import("@/pages/NotificationsPage/NotificationsPage")
+);
+
+export const ServicesPage = lazy(
+    () => import("@/pages/ServicesPage/ServicesPage")
+);
+
+export const AuditLogPage = lazy(
+    () => import("@/pages/AuditLogPage/AuditLogPage")
+);
