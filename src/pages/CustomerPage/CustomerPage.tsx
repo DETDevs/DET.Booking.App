@@ -6,15 +6,14 @@ import type { Client } from "@/entities/client/useClientStore";
 import { useActivityStore } from "@/entities/activity/useActivityStore";
 import { useToast } from "@/shared/ui/Toast";
 import { ConfirmDialog } from "@/shared/ui/ConfirmDialog";
-import { PageHeader } from "@/shared/ui/PageHeader";
+import { FormModal } from "@/shared/ui/FormModal";
+import { CrudPageHeader } from "@/shared/ui/CrudPageHeader";
+import { inputClass, labelClass, getRingStyle } from "@/shared/lib/formStyles";
 import { motion, AnimatePresence } from "motion/react";
 import {
-  Plus,
-  Search,
   Edit3,
   Trash2,
   UsersRound,
-  X,
   Phone,
   Mail,
   CalendarDays,
@@ -22,7 +21,6 @@ import {
   StickyNote,
 } from "lucide-react";
 
-// ─── Client form modal ───────────────────────────────────────────
 interface ClientFormProps {
   open: boolean;
   client?: Client | null;
@@ -67,118 +65,69 @@ function ClientFormModal({
     });
   };
 
-  const inputClass =
-    "w-full px-3 py-2.5 text-sm rounded-xl border border-gray-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 transition-all";
-  const labelClass =
-    "block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-neutral-400 mb-1.5";
-  const ringStyle = { "--tw-ring-color": primaryColor } as React.CSSProperties;
+  const ringStyle = getRingStyle(primaryColor);
 
   return (
-    <AnimatePresence>
-      {open && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+    <FormModal
+      open={open}
+      title={`${isEdit ? "Editar" : "Nuevo"} cliente`}
+      primaryColor={primaryColor}
+      submitLabel={isEdit ? "Guardar cambios" : "Crear"}
+      isValid={isValid}
+      onSubmit={handleSubmit}
+      onClose={onClose}
+    >
+      <div>
+        <label className={labelClass}>Nombre completo *</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Ej: María López"
+          className={inputClass}
+          style={ringStyle}
+          autoFocus
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className={labelClass}>Teléfono *</label>
+          <input
+            type="tel"
+            value={phone1}
+            onChange={(e) => setPhone1(e.target.value)}
+            placeholder="8888-0000"
+            className={inputClass}
+            style={ringStyle}
           />
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          >
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl w-full max-w-md border border-gray-100 dark:border-neutral-700">
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-neutral-700">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                  {isEdit ? "Editar" : "Nuevo"} cliente
-                </h3>
-                <button
-                  onClick={onClose}
-                  className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-
-              <div className="px-6 py-5 space-y-4">
-                <div>
-                  <label className={labelClass}>Nombre completo *</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Ej: María López"
-                    className={inputClass}
-                    style={ringStyle}
-                    autoFocus
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className={labelClass}>Teléfono *</label>
-                    <input
-                      type="tel"
-                      value={phone1}
-                      onChange={(e) => setPhone1(e.target.value)}
-                      placeholder="8888-0000"
-                      className={inputClass}
-                      style={ringStyle}
-                    />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Email</label>
-                    <input
-                      type="email"
-                      value={email1}
-                      onChange={(e) => setEmail1(e.target.value)}
-                      placeholder="correo@email.com"
-                      className={inputClass}
-                      style={ringStyle}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className={labelClass}>Notas / Preferencias</label>
-                  <textarea
-                    value={notes1}
-                    onChange={(e) => setNotes1(e.target.value)}
-                    placeholder="Ej: Alérgico a mariscos, prefiere ventana..."
-                    rows={2}
-                    className={`${inputClass} resize-none`}
-                    style={ringStyle}
-                  />
-                </div>
-              </div>
-
-              <div className="flex justify-end gap-2 px-6 py-4 border-t border-gray-100 dark:border-neutral-700">
-                <button
-                  onClick={onClose}
-                  className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-neutral-400 bg-gray-100 dark:bg-neutral-700 rounded-xl hover:bg-gray-200 dark:hover:bg-neutral-600 transition-colors cursor-pointer"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  disabled={!isValid}
-                  className="px-5 py-2 text-sm font-semibold text-white rounded-xl hover:opacity-90 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: primaryColor }}
-                >
-                  {isEdit ? "Guardar cambios" : "Crear"}
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+        </div>
+        <div>
+          <label className={labelClass}>Email</label>
+          <input
+            type="email"
+            value={email1}
+            onChange={(e) => setEmail1(e.target.value)}
+            placeholder="correo@email.com"
+            className={inputClass}
+            style={ringStyle}
+          />
+        </div>
+      </div>
+      <div>
+        <label className={labelClass}>Notas / Preferencias</label>
+        <textarea
+          value={notes1}
+          onChange={(e) => setNotes1(e.target.value)}
+          placeholder="Ej: Alérgico a mariscos, prefiere ventana..."
+          rows={2}
+          className={`${inputClass} resize-none`}
+          style={ringStyle}
+        />
+      </div>
+    </FormModal>
   );
 }
 
-// ─── Main page ───────────────────────────────────────────────────
 const CustomerPage = () => {
   const tenant = useTenant();
   const entityName =
@@ -193,7 +142,6 @@ const CustomerPage = () => {
   const primaryColor = tenant.branding?.primaryColor ?? "#6366f1";
   const { toast } = useToast();
 
-  // Zustand stores
   const allClients = useClientStore((s) => s.clients);
   const addClient = useClientStore((s) => s.addClient);
   const updateClient = useClientStore((s) => s.updateClient);
@@ -225,23 +173,11 @@ const CustomerPage = () => {
   const handleSave = (data: Omit<Client, "id" | "createdAt" | "totalVisits">) => {
     if (editClient) {
       updateClient(editClient.id, data);
-      addActivity({
-        action: "settings",
-        user: "Admin",
-        target: data.name,
-        details: `Actualizó información del cliente ${data.name}`,
-        tenant: tenant.type,
-      });
+      addActivity({ action: "settings", user: "Admin", target: data.name, details: `Actualizó información del cliente ${data.name}`, tenant: tenant.type });
       toast(`${data.name} actualizado ✓`, "success");
     } else {
       addClient(data);
-      addActivity({
-        action: "create",
-        user: "Admin",
-        target: data.name,
-        details: `Registró nuevo cliente: ${data.name}`,
-        tenant: tenant.type,
-      });
+      addActivity({ action: "create", user: "Admin", target: data.name, details: `Registró nuevo cliente: ${data.name}`, tenant: tenant.type });
       toast(`${data.name} registrado ✓`, "success");
     }
     setFormOpen(false);
@@ -252,13 +188,7 @@ const CustomerPage = () => {
     if (!deleteTarget) return;
     const client = allClients.find((c) => c.id === deleteTarget);
     deleteClient(deleteTarget);
-    addActivity({
-      action: "cancel",
-      user: "Admin",
-      target: client?.name ?? "",
-      details: `Eliminó al cliente ${client?.name ?? ""}`,
-      tenant: tenant.type,
-    });
+    addActivity({ action: "cancel", user: "Admin", target: client?.name ?? "", details: `Eliminó al cliente ${client?.name ?? ""}`, tenant: tenant.type });
     toast(`${client?.name ?? ""} eliminado`, "error");
     setDeleteTarget(null);
   };
@@ -275,43 +205,17 @@ const CustomerPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <PageHeader
-          icon={UsersRound}
-          title={title}
-          subtitle={`${tenantClients.length} clientes registrados`}
-        />
-        <button
-          onClick={openCreate}
-          className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white rounded-xl hover:opacity-90 hover:shadow-lg transition-all cursor-pointer"
-          style={{
-            backgroundColor: primaryColor,
-            boxShadow: `0 4px 14px ${primaryColor}40`,
-          }}
-        >
-          <Plus size={16} />
-          Nuevo
-        </button>
-      </div>
+      <CrudPageHeader
+        icon={UsersRound}
+        title={title}
+        subtitle={`${tenantClients.length} clientes registrados`}
+        primaryColor={primaryColor}
+        search={search}
+        onSearch={setSearch}
+        searchPlaceholder="Buscar por nombre, teléfono, email..."
+        onCreate={openCreate}
+      />
 
-      {/* Search */}
-      <div className="relative max-w-sm">
-        <Search
-          size={16}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-neutral-500"
-        />
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Buscar por nombre, teléfono, email..."
-          className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border border-gray-200 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 transition-all"
-          style={{ "--tw-ring-color": primaryColor } as React.CSSProperties}
-        />
-      </div>
-
-      {/* Client table */}
       <div className="bg-white dark:bg-neutral-800 rounded-2xl border border-gray-100 dark:border-neutral-700 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -356,7 +260,6 @@ const CustomerPage = () => {
                       exit={{ opacity: 0, x: 40 }}
                       className="border-b border-gray-50 dark:border-neutral-700/50 group"
                     >
-                      {/* Name + Avatar */}
                       <td className="px-5 py-3">
                         <div className="flex items-center gap-3">
                           <div
@@ -371,7 +274,6 @@ const CustomerPage = () => {
                         </div>
                       </td>
 
-                      {/* Contact */}
                       <td className="px-5 py-3">
                         <div className="space-y-0.5">
                           <p className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-neutral-400">
@@ -387,7 +289,6 @@ const CustomerPage = () => {
                         </div>
                       </td>
 
-                      {/* Notes */}
                       <td className="px-5 py-3">
                         {client.notes ? (
                           <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full bg-gray-50 dark:bg-neutral-700 text-gray-600 dark:text-neutral-300 max-w-[180px] truncate">
@@ -401,7 +302,6 @@ const CustomerPage = () => {
                         )}
                       </td>
 
-                      {/* Visits */}
                       <td className="px-5 py-3 text-center">
                         <span className="inline-flex items-center gap-1 text-xs font-semibold text-gray-600 dark:text-neutral-300">
                           <Hash size={10} />
@@ -409,7 +309,6 @@ const CustomerPage = () => {
                         </span>
                       </td>
 
-                      {/* Last Visit */}
                       <td className="px-5 py-3">
                         {client.lastVisit ? (
                           <span className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-neutral-400">
@@ -423,7 +322,6 @@ const CustomerPage = () => {
                         )}
                       </td>
 
-                      {/* Actions */}
                       <td className="px-5 py-3">
                         <div className="flex items-center justify-end gap-1">
                           <button
@@ -462,7 +360,6 @@ const CustomerPage = () => {
         )}
       </div>
 
-      {/* Create / Edit modal */}
       <ClientFormModal
         open={formOpen}
         client={editClient}
@@ -475,7 +372,6 @@ const CustomerPage = () => {
         }}
       />
 
-      {/* Delete confirm */}
       <ConfirmDialog
         open={deleteTarget !== null}
         title="Eliminar cliente"

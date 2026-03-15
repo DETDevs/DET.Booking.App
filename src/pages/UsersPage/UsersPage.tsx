@@ -6,23 +6,21 @@ import type { StaffMember } from "@/entities/staff/useStaffStore";
 import { useActivityStore } from "@/entities/activity/useActivityStore";
 import { useToast } from "@/shared/ui/Toast";
 import { ConfirmDialog } from "@/shared/ui/ConfirmDialog";
-import { PageHeader } from "@/shared/ui/PageHeader";
+import { FormModal } from "@/shared/ui/FormModal";
+import { CrudPageHeader } from "@/shared/ui/CrudPageHeader";
+import { inputClass, labelClass, getRingStyle } from "@/shared/lib/formStyles";
 import { motion, AnimatePresence } from "motion/react";
 import {
-  Plus,
-  Search,
   Edit3,
   Trash2,
   ToggleLeft,
   ToggleRight,
   Users,
-  X,
   Phone,
   Mail,
   Briefcase,
 } from "lucide-react";
 
-// ─── Staff form modal ────────────────────────────────────────────
 interface StaffFormProps {
   open: boolean;
   member?: StaffMember | null;
@@ -76,119 +74,66 @@ function StaffFormModal({
     });
   };
 
-  const inputClass =
-    "w-full px-3 py-2.5 text-sm rounded-xl border border-gray-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 transition-all";
-  const labelClass =
-    "block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-neutral-400 mb-1.5";
-  const ringStyle = { "--tw-ring-color": primaryColor } as React.CSSProperties;
+  const ringStyle = getRingStyle(primaryColor);
 
   return (
-    <AnimatePresence>
-      {open && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+    <FormModal
+      open={open}
+      title={`${isEdit ? "Editar" : "Nuevo"} miembro`}
+      primaryColor={primaryColor}
+      submitLabel={isEdit ? "Guardar cambios" : "Crear"}
+      isValid={isValid}
+      onSubmit={handleSubmit}
+      onClose={onClose}
+    >
+      <div>
+        <label className={labelClass}>Nombre completo *</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Ej: Dr. Juan Pérez"
+          className={inputClass}
+          style={ringStyle}
+          autoFocus
+        />
+      </div>
+      <div>
+        <label className={labelClass}>Especialidad / Área</label>
+        <input
+          type="text"
+          value={speciality}
+          onChange={(e) => setSpeciality(e.target.value)}
+          placeholder="Ej: Cardiología, Fade, Terraza..."
+          className={inputClass}
+          style={ringStyle}
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className={labelClass}>Teléfono</label>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="8888-0000"
+            className={inputClass}
+            style={ringStyle}
           />
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          >
-            <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl w-full max-w-md border border-gray-100 dark:border-neutral-700">
-              {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-neutral-700">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                  {isEdit ? "Editar" : "Nuevo"} miembro
-                </h3>
-                <button
-                  onClick={onClose}
-                  className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-
-              {/* Form */}
-              <div className="px-6 py-5 space-y-4">
-                <div>
-                  <label className={labelClass}>Nombre completo *</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Ej: Dr. Juan Pérez"
-                    className={inputClass}
-                    style={ringStyle}
-                    autoFocus
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>Especialidad / Área</label>
-                  <input
-                    type="text"
-                    value={speciality}
-                    onChange={(e) => setSpeciality(e.target.value)}
-                    placeholder="Ej: Cardiología, Fade, Terraza..."
-                    className={inputClass}
-                    style={ringStyle}
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className={labelClass}>Teléfono</label>
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="8888-0000"
-                      className={inputClass}
-                      style={ringStyle}
-                    />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Email</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="correo@email.com"
-                      className={inputClass}
-                      style={ringStyle}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Footer */}
-              <div className="flex justify-end gap-2 px-6 py-4 border-t border-gray-100 dark:border-neutral-700">
-                <button
-                  onClick={onClose}
-                  className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-neutral-400 bg-gray-100 dark:bg-neutral-700 rounded-xl hover:bg-gray-200 dark:hover:bg-neutral-600 transition-colors cursor-pointer"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  disabled={!isValid}
-                  className="px-5 py-2 text-sm font-semibold text-white rounded-xl hover:opacity-90 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: primaryColor }}
-                >
-                  {isEdit ? "Guardar cambios" : "Crear"}
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+        </div>
+        <div>
+          <label className={labelClass}>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="correo@email.com"
+            className={inputClass}
+            style={ringStyle}
+          />
+        </div>
+      </div>
+    </FormModal>
   );
 }
 
@@ -232,23 +177,11 @@ const UsersPage = () => {
   const handleSave = (data: Omit<StaffMember, "id">) => {
     if (editMember) {
       updateStaff(editMember.id, data);
-      addActivity({
-        action: "settings",
-        user: "Admin",
-        target: data.name,
-        details: `Actualizó información de ${data.name}`,
-        tenant: tenant.type,
-      });
+      addActivity({ action: "settings", user: "Admin", target: data.name, details: `Actualizó información de ${data.name}`, tenant: tenant.type });
       toast(`${data.name} actualizado ✓`, "success");
     } else {
       addStaff(data);
-      addActivity({
-        action: "create",
-        user: "Admin",
-        target: data.name,
-        details: `Registró nuevo miembro: ${data.name}`,
-        tenant: tenant.type,
-      });
+      addActivity({ action: "create", user: "Admin", target: data.name, details: `Registró nuevo miembro: ${data.name}`, tenant: tenant.type });
       toast(`${data.name} registrado ✓`, "success");
     }
     setFormOpen(false);
@@ -258,32 +191,15 @@ const UsersPage = () => {
   const handleToggle = (member: StaffMember) => {
     toggleAvailability(member.id);
     const newState = !member.available;
-    addActivity({
-      action: "settings",
-      user: "Admin",
-      target: member.name,
-      details: newState
-        ? `Activó a ${member.name}`
-        : `Desactivó a ${member.name}`,
-      tenant: tenant.type,
-    });
-    toast(
-      `${member.name} ${newState ? "activado" : "desactivado"} ✓`,
-      "success",
-    );
+    addActivity({ action: "settings", user: "Admin", target: member.name, details: newState ? `Activó a ${member.name}` : `Desactivó a ${member.name}`, tenant: tenant.type });
+    toast(`${member.name} ${newState ? "activado" : "desactivado"} ✓`, "success");
   };
 
   const handleDelete = () => {
     if (!deleteTarget) return;
     const member = allStaff.find((s) => s.id === deleteTarget);
     deleteStaff(deleteTarget);
-    addActivity({
-      action: "cancel",
-      user: "Admin",
-      target: member?.name ?? "",
-      details: `Eliminó a ${member?.name ?? ""} del equipo`,
-      tenant: tenant.type,
-    });
+    addActivity({ action: "cancel", user: "Admin", target: member?.name ?? "", details: `Eliminó a ${member?.name ?? ""} del equipo`, tenant: tenant.type });
     toast(`${member?.name ?? ""} eliminado`, "error");
     setDeleteTarget(null);
   };
@@ -300,40 +216,16 @@ const UsersPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <PageHeader
-          icon={Users}
-          title={title}
-          subtitle={`${tenantStaff.length} miembros registrados`}
-        />
-        <button
-          onClick={openCreate}
-          className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white rounded-xl hover:opacity-90 hover:shadow-lg transition-all cursor-pointer"
-          style={{
-            backgroundColor: primaryColor,
-            boxShadow: `0 4px 14px ${primaryColor}40`,
-          }}
-        >
-          <Plus size={16} />
-          Nuevo
-        </button>
-      </div>
-
-      <div className="relative max-w-sm">
-        <Search
-          size={16}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-neutral-500"
-        />
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Buscar por nombre, especialidad, teléfono..."
-          className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border border-gray-200 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-neutral-100 focus:outline-none focus:ring-2 transition-all"
-          style={{ "--tw-ring-color": primaryColor } as React.CSSProperties}
-        />
-      </div>
+      <CrudPageHeader
+        icon={Users}
+        title={title}
+        subtitle={`${tenantStaff.length} miembros registrados`}
+        primaryColor={primaryColor}
+        search={search}
+        onSearch={setSearch}
+        searchPlaceholder="Buscar por nombre, especialidad, teléfono..."
+        onCreate={openCreate}
+      />
 
       <div className="bg-white dark:bg-neutral-800 rounded-2xl border border-gray-100 dark:border-neutral-700 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
